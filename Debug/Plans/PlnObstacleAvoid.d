@@ -14,10 +14,12 @@ Plans/PlnObstacleAvoid.d: ../Plans/PlnObstacleAvoid.cpp \
  /usr/local/include/player-2.0/libplayerc++/playerclient.h \
  /usr/local/include/player-2.0/libplayerc++/playererror.h \
  /usr/local/include/player-2.0/libplayerc++/clientproxy.h \
- ../Plans/../Behaviours/../Location.h ../Plans/../Behaviours/../Helper.h \
- ../Plans/../Behaviours/GoForward.h ../Plans/../Behaviours/Behavior.h \
- ../Plans/../Behaviours/TurnLeft.h ../Plans/../Behaviours/GoForward.h \
- ../Plans/../Behaviours/TurnRight.h ../Plans/../Behaviours/TurnInPlace.h
+ ../Plans/../Behaviours/../Location.h \
+ ../Plans/../Behaviours/../ConfigurationManager.h \
+ ../Plans/../Behaviours/../Helper.h ../Plans/../Behaviours/GoForward.h \
+ ../Plans/../Behaviours/Behavior.h ../Plans/../Behaviours/TurnLeft.h \
+ ../Plans/../Behaviours/GoForward.h ../Plans/../Behaviours/TurnRight.h \
+ ../Plans/../Behaviours/TurnInPlace.h
 
 ../Plans/PlnObstacleAvoid.h:
 
@@ -54,6 +56,8 @@ Plans/PlnObstacleAvoid.d: ../Plans/PlnObstacleAvoid.cpp \
 /usr/local/include/player-2.0/libplayerc++/clientproxy.h:
 
 ../Plans/../Behaviours/../Location.h:
+
+../Plans/../Behaviours/../ConfigurationManager.h:
 
 ../Plans/../Behaviours/../Helper.h:
 

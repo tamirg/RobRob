@@ -2,29 +2,52 @@
 #include "MapLibraries/lodepng.h"
 
 Map::Map() {
-	for (int i = 0; i < Helper::MAP_ROWS; i++) {
-		for (int j = 0; j < Helper::MAP_COLUMNS; j++) {
-			_map[i][j] = Helper::UNKNOWN_CELL;
-		}
-	}
+
+}
+
+Map::Map(ConfigurationManager* configurationManager, Robot* robot) {
+	_mapPath = configurationManager->GetMapPath();
+	_mapResolutionCM = configurationManager->GetMapResolutionCM();
+	_gridResolutionCM = configurationManager->GetGridResolutionCM();
+	_robot = robot;
+
+	reloadMapFromFile();
+
+//TODO: SEE IF NEEDED
+//	for (int i = 0; i < Helper::MAP_HEIGHT; i++) {
+//		for (int j = 0; j < Helper::MAP_WIDTH; j++) {
+//			_map[i][j] = Helper::UNKNOWN_CELL;
+//		}
+//	}
 }
 
 void Map::printMap() {
 	cout << "Printing Map: " << endl;
-	for (int i = 0; i < Helper::MAP_ROWS; i++) {
-		for (int j = 0; j < Helper::MAP_COLUMNS; j++) {
+	for (int i = 0; i < Helper::MAP_HEIGHT; i++) {
+		for (int j = 0; j < Helper::MAP_WIDTH; j++) {
 			cout << _map[i][j];
 		}
 		cout << endl;
 	}
 }
 
+void Map::printBlownMap() {
+	cout << "Printing Map: " << endl;
+	for (int i = 0; i < Helper::MAP_HEIGHT; i++) {
+		for (int j = 0; j < Helper::MAP_WIDTH; j++) {
+			cout << _blownMap[i][j];
+		}
+		cout << endl;
+	}
+}
+
+
 int Map::calculateXIndex(int x) {
-	return (x / Helper::MAP_RESOLUTION) + (Helper::MAP_COLUMNS / 2);
+	return (x / Helper::MAP_RESOLUTION) + (Helper::MAP_WIDTH / 2);
 }
 
 int Map::calculateYIndex(int y) {
-	return (y / Helper::MAP_RESOLUTION) - (Helper::MAP_ROWS / 2);
+	return (y / Helper::MAP_RESOLUTION) - (Helper::MAP_HEIGHT / 2);
 }
 
 void Map::getMapCoordinates(double realX, double realY, int &mapX, int &mapY) {
@@ -44,21 +67,36 @@ int Map::getCellValue(int x, int y) {
 	return _map[xIndex][yIndex];
 }
 
-/*
- * Tamir added
- *
- */
+void Map::constructBlownMap(vector<vector<int> > mapPixelGrid) {
+	for (int row = 0; row < Helper::MAP_HEIGHT; row++) {
+		for (int column = 0; column < Helper::MAP_WIDTH; column++) {
+			if (mapPixelGrid[row][column] == Helper::FREE_CELL) {
+				_blownMap[row][column] = Helper::FREE_CELL;
+			} else {
+				for (int i=1; i <= (_robot -> getWidth() / 2) / _mapResolutionCM; i++) {
+					if (column + i <= Helper::MAP_WIDTH) {
+						_blownMap[row][column + i] = Helper::OCCUPIED_CELL;
+					}
+					if (column - i >= 0) {
+						_blownMap[row][column - i] = Helper::OCCUPIED_CELL;
+					}
+					if (row + i <= Helper::MAP_HEIGHT) {
+						_blownMap[row + i][column] = Helper::OCCUPIED_CELL;
+					}
+					if (row - i >= 0) {
+						_blownMap[row - i][column] = Helper::OCCUPIED_CELL;
+					}
+				}
+			}
+		}
+	}
+
+
+}
+
 void Map::reloadMapFromFile() {
-	std::vector<unsigned char> png;
-	std::vector<unsigned char> image; //the raw pixels
-	unsigned width, height;
+	vector<vector<int> > mapPixelGrid = convertPngToPixels(MAP_FILE_PATH);
 
-	//load and decode
-	lodepng::load_file(png, MAP_FILE_PATH);
-	unsigned error = lodepng::decode(image, width, height, png);
-
-	//if there's an error, display it
-	if (error)
-		std::cout << "decoder error " << error << ": "
-				<< lodepng_error_text(error) << std::endl;
+	constructBlownMap(mapPixelGrid);
+	printBlownMap();
 }

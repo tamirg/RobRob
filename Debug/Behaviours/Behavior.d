@@ -13,7 +13,8 @@ Behaviours/Behavior.d: ../Behaviours/Behavior.cpp \
  /usr/local/include/player-2.0/libplayerc++/playerclient.h \
  /usr/local/include/player-2.0/libplayerc++/playererror.h \
  /usr/local/include/player-2.0/libplayerc++/clientproxy.h \
- ../Behaviours/../Location.h ../Behaviours/../Helper.h
+ ../Behaviours/../Location.h ../Behaviours/../ConfigurationManager.h \
+ ../Behaviours/../Helper.h
 
 ../Behaviours/Behavior.h:
 
@@ -46,5 +47,7 @@ Behaviours/Behavior.d: ../Behaviours/Behavior.cpp \
 /usr/local/include/player-2.0/libplayerc++/clientproxy.h:
 
 ../Behaviours/../Location.h:
+
+../Behaviours/../ConfigurationManager.h:
 
 ../Behaviours/../Helper.h:

@@ -13,9 +13,11 @@ Manager.d: ../Manager.cpp ../Manager.h ../Plans/Plan.h \
  /usr/local/include/player-2.0/libplayerc++/playerclient.h \
  /usr/local/include/player-2.0/libplayerc++/playererror.h \
  /usr/local/include/player-2.0/libplayerc++/clientproxy.h \
- ../Plans/../Behaviours/../Location.h ../Plans/../Behaviours/../Helper.h \
- ../Behaviours/Behavior.h ../Robot.h ../LocalizaionManager.h \
- ../Particle.h ../Map.h ../Helper.h ../Location.h
+ ../Plans/../Behaviours/../Location.h \
+ ../Plans/../Behaviours/../ConfigurationManager.h \
+ ../Plans/../Behaviours/../Helper.h ../Behaviours/Behavior.h ../Robot.h \
+ ../LocalizaionManager.h ../Particle.h ../Map.h ../Helper.h \
+ ../MapLibraries/pngUtil.h ../ConfigurationManager.h ../Location.h
 
 ../Manager.h:
 
@@ -53,6 +55,8 @@ Manager.d: ../Manager.cpp ../Manager.h ../Plans/Plan.h \
 
 ../Plans/../Behaviours/../Location.h:
 
+../Plans/../Behaviours/../ConfigurationManager.h:
+
 ../Plans/../Behaviours/../Helper.h:
 
 ../Behaviours/Behavior.h:
@@ -66,5 +70,9 @@ Manager.d: ../Manager.cpp ../Manager.h ../Plans/Plan.h \
 ../Map.h:
 
 ../Helper.h:
+
+../MapLibraries/pngUtil.h:
+
+../ConfigurationManager.h:
 
 ../Location.h:

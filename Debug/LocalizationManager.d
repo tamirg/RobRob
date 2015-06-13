@@ -12,7 +12,8 @@ LocalizationManager.d: ../LocalizationManager.cpp ../LocalizaionManager.h \
  /usr/local/include/player-2.0/libplayerc++/playerclient.h \
  /usr/local/include/player-2.0/libplayerc++/playererror.h \
  /usr/local/include/player-2.0/libplayerc++/clientproxy.h ../Particle.h \
- ../Map.h ../Helper.h ../Location.h
+ ../Map.h ../Helper.h ../MapLibraries/pngUtil.h ../ConfigurationManager.h \
+ ../Robot.h ../Location.h
 
 ../LocalizaionManager.h:
 
@@ -47,5 +48,11 @@ LocalizationManager.d: ../LocalizationManager.cpp ../LocalizaionManager.h \
 ../Map.h:
 
 ../Helper.h:
+
+../MapLibraries/pngUtil.h:
+
+../ConfigurationManager.h:
+
+../Robot.h:
 
 ../Location.h:

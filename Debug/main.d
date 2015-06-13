@@ -13,14 +13,15 @@ main.d: ../main.cpp ../Manager.h ../Plans/Plan.h \
  /usr/local/include/player-2.0/libplayerc++/playerclient.h \
  /usr/local/include/player-2.0/libplayerc++/playererror.h \
  /usr/local/include/player-2.0/libplayerc++/clientproxy.h \
- ../Plans/../Behaviours/../Location.h ../Plans/../Behaviours/../Helper.h \
- ../Behaviours/Behavior.h ../Robot.h ../LocalizaionManager.h \
- ../Particle.h ../Map.h ../Helper.h ../Location.h \
+ ../Plans/../Behaviours/../Location.h \
+ ../Plans/../Behaviours/../ConfigurationManager.h \
+ ../Plans/../Behaviours/../Helper.h ../Behaviours/Behavior.h ../Robot.h \
+ ../LocalizaionManager.h ../Particle.h ../Map.h ../Helper.h \
+ ../MapLibraries/pngUtil.h ../ConfigurationManager.h ../Location.h \
  ../Plans/PlnObstacleAvoid.h ../Plans/Plan.h \
  ../Plans/../Behaviours/GoForward.h ../Plans/../Behaviours/Behavior.h \
  ../Plans/../Behaviours/TurnLeft.h ../Plans/../Behaviours/GoForward.h \
- ../Plans/../Behaviours/TurnRight.h ../Plans/../Behaviours/TurnInPlace.h \
- ../MapLibraries/pngUtil.h
+ ../Plans/../Behaviours/TurnRight.h ../Plans/../Behaviours/TurnInPlace.h
 
 ../Manager.h:
 
@@ -58,6 +59,8 @@ main.d: ../main.cpp ../Manager.h ../Plans/Plan.h \
 
 ../Plans/../Behaviours/../Location.h:
 
+../Plans/../Behaviours/../ConfigurationManager.h:
+
 ../Plans/../Behaviours/../Helper.h:
 
 ../Behaviours/Behavior.h:
@@ -71,6 +74,10 @@ main.d: ../main.cpp ../Manager.h ../Plans/Plan.h \
 ../Map.h:
 
 ../Helper.h:
+
+../MapLibraries/pngUtil.h:
+
+../ConfigurationManager.h:
 
 ../Location.h:
 
@@ -89,5 +96,3 @@ main.d: ../main.cpp ../Manager.h ../Plans/Plan.h \
 ../Plans/../Behaviours/TurnRight.h:
 
 ../Plans/../Behaviours/TurnInPlace.h:
-
-../MapLibraries/pngUtil.h:

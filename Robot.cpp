@@ -1,7 +1,10 @@
 #include "Robot.h"
 
-Robot::Robot(char* ip, int port)
+Robot::Robot(char* ip, int port, ConfigurationManager* config)
 {
+	_height = config -> GetRobotLength();
+	_width = config -> GetRobotWidth();
+
 	_pc = new PlayerClient(ip,port);
 	_pp = new Position2dProxy(_pc);
 	_lp = new LaserProxy(_pc);
@@ -38,6 +41,16 @@ void Robot::setSpeed(float speed, float angularSpeed)
 float Robot::getLaserDistance(int index)
 {
 	return _lp->GetRange(index);
+}
+
+double Robot::getWidth()
+{
+	return _width;
+}
+
+double Robot::getHeight()
+{
+	return _height;
 }
 
 Robot::~Robot()

@@ -25,7 +25,7 @@ class Particle
 
 private:
 	Location _location;
-	Map _map;
+	Map* _map;
 	double _belief;
 
 public:
@@ -33,8 +33,8 @@ public:
 	void updateParticle(double deltaX, double deltaY, double deltaYaw, float laserScan[], int laserCount);
 	double calculatePrediction(double deltaX, double deltaY, double deltaYaw);
 	double probabilityUpdateMapUsingScan(float laserScan[], int laserCount);
-	void setMap(Map map);
-	Map getMap();
+	void setMap(Map* map);
+	Map* getMap();
 	double getBelief();
 	double convertIndexToAngle(int i, int x, int r);
 	void printMap();

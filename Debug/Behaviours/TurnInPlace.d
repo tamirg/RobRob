@@ -14,8 +14,8 @@ Behaviours/TurnInPlace.d: ../Behaviours/TurnInPlace.cpp \
  /usr/local/include/player-2.0/libplayerc++/playerclient.h \
  /usr/local/include/player-2.0/libplayerc++/playererror.h \
  /usr/local/include/player-2.0/libplayerc++/clientproxy.h \
- ../Behaviours/../Location.h ../Behaviours/../Helper.h \
- ../Behaviours/GoForward.h
+ ../Behaviours/../Location.h ../Behaviours/../ConfigurationManager.h \
+ ../Behaviours/../Helper.h ../Behaviours/GoForward.h
 
 ../Behaviours/TurnInPlace.h:
 
@@ -50,6 +50,8 @@ Behaviours/TurnInPlace.d: ../Behaviours/TurnInPlace.cpp \
 /usr/local/include/player-2.0/libplayerc++/clientproxy.h:
 
 ../Behaviours/../Location.h:
+
+../Behaviours/../ConfigurationManager.h:
 
 ../Behaviours/../Helper.h:
 

@@ -4,6 +4,7 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
+../ConfigurationManager.cpp \
 ../Helper.cpp \
 ../LocalizationManager.cpp \
 ../Location.cpp \
@@ -14,6 +15,7 @@ CPP_SRCS += \
 ../main.cpp 
 
 OBJS += \
+./ConfigurationManager.o \
 ./Helper.o \
 ./LocalizationManager.o \
 ./Location.o \
@@ -24,6 +26,7 @@ OBJS += \
 ./main.o 
 
 CPP_DEPS += \
+./ConfigurationManager.d \
 ./Helper.d \
 ./LocalizationManager.d \
 ./Location.d \

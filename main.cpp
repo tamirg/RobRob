@@ -8,7 +8,8 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-	Robot robot("localhost",6665);
+	ConfigurationManager configManager;
+	Robot robot("localhost",6665, &configManager);
 	PlnObstacleAvoid pln(&robot);
 	Manager m(&robot,&pln);
 	m.run();

@@ -9,10 +9,11 @@
 #define PNGUTIL_H_
 #include <iostream>
 #include <vector>
+using namespace std;
 
 void encodeOneStep(const char* filename, std::vector<unsigned char> image, unsigned width, unsigned height);
 void decodeOneStep(const char* filename);
-void ConvertMapBlackToWhiteAndWhiteToBlack(const char* filename);
+vector<vector<int> > convertPngToPixels(const char* filename);
 
 
 

@@ -16,10 +16,10 @@ Particle::Particle(double x,double y)
 
 	int mapX,mapY;
 
-	_map.getMapCoordinates(_location->getX(),_location->getY(),mapX,mapY);
+	_map->getMapCoordinates(_location->getX(),_location->getY(),mapX,mapY);
 	for (int i=-ROBOT_DIMENTION_ON_MAP; i<ROBOT_DIMENTION_ON_MAP; i++)
 		for (int j=-ROBOT_DIMENTION_ON_MAP; j<ROBOT_DIMENTION_ON_MAP; j++)
-			_map.setCellValue(mapX+i, mapY+j, Helper::FREE_CELL);
+			_map->setCellValue(mapX+i, mapY+j, Helper::FREE_CELL);
 }
 
 void Particle::updateParticle(double deltaX, double deltaY, double deltaYaw, float laserScan[], int laserCount)
@@ -47,19 +47,19 @@ double Particle::probabilityUpdateMapUsingScan(float laserScan[], int laserCount
 				{
 					objectX = (j * cos(DTOR(convertIndexToAngle(i,laserCount,LASER_ANGLE_RANGE)) + _location.getYaw())) + _location.getX();
 					objectY = (j * sin(DTOR(convertIndexToAngle(i,laserCount,LASER_ANGLE_RANGE)) + _location.getYaw())) + _location.getY();
-					_map.getMapCoordinates(objectX,objectY,objectXOnMap,objectYOnMap);
+					_map->getMapCoordinates(objectX,objectY,objectXOnMap,objectYOnMap);
 
-					if (_map.getCellValue(objectXOnMap,objectYOnMap) == Helper::UNKNOWN_CELL)
+					if (_map->getCellValue(objectXOnMap,objectYOnMap) == Helper::UNKNOWN_CELL)
 					{
-						_map.setCellValue(objectXOnMap,objectYOnMap, Helper::FREE_CELL);
+						_map->setCellValue(objectXOnMap,objectYOnMap, Helper::FREE_CELL);
 						countHit++;
 					}
-					else if(_map.getCellValue(objectXOnMap,objectYOnMap) == Helper::OCCUPIED_CELL)
+					else if(_map->getCellValue(objectXOnMap,objectYOnMap) == Helper::OCCUPIED_CELL)
 					{
-						_map.setCellValue(objectXOnMap,objectYOnMap, Helper::FREE_CELL);
+						_map->setCellValue(objectXOnMap,objectYOnMap, Helper::FREE_CELL);
 						countMiss++;
 					}
-					else if(_map.getCellValue(objectXOnMap,objectYOnMap) == Helper::FREE_CELL)
+					else if(_map->getCellValue(objectXOnMap,objectYOnMap) == Helper::FREE_CELL)
 					{
 						countHit++;
 					}
@@ -69,27 +69,27 @@ double Particle::probabilityUpdateMapUsingScan(float laserScan[], int laserCount
 			{
 				objectX = ((M_TO_CM(laserScan[i])) * cos(DTOR(convertIndexToAngle(i,laserCount,LASER_ANGLE_RANGE)) + _location.getYaw())) + _location.getX();
 				objectY = ((M_TO_CM(laserScan[i])) * sin(DTOR(convertIndexToAngle(i,laserCount,LASER_ANGLE_RANGE)) + _location.getYaw())) + _location.getY();
-				_map.getMapCoordinates(objectX,objectY,objectXOnMap,objectYOnMap);
+				_map->getMapCoordinates(objectX,objectY,objectXOnMap,objectYOnMap);
 
-				if (_map.getCellValue(objectXOnMap,objectYOnMap) == Helper::UNKNOWN_CELL)
+				if (_map->getCellValue(objectXOnMap,objectYOnMap) == Helper::UNKNOWN_CELL)
 				{
-					_map.setCellValue(objectXOnMap,objectYOnMap, Helper::OCCUPIED_CELL);
+					_map->setCellValue(objectXOnMap,objectYOnMap, Helper::OCCUPIED_CELL);
 					countHit++;
 				}
-				else if (_map.getCellValue(objectXOnMap,objectYOnMap) == Helper::OCCUPIED_CELL)
+				else if (_map->getCellValue(objectXOnMap,objectYOnMap) == Helper::OCCUPIED_CELL)
 				{
 					countHit++;
 				}
-				else if(_map.getCellValue(objectXOnMap,objectYOnMap) == Helper::FREE_CELL)
+				else if(_map->getCellValue(objectXOnMap,objectYOnMap) == Helper::FREE_CELL)
 				{
-					_map.setCellValue(objectXOnMap,objectYOnMap, Helper::OCCUPIED_CELL);
+					_map->setCellValue(objectXOnMap,objectYOnMap, Helper::OCCUPIED_CELL);
 					countMiss++;
 				}
 			}
 		}
 
 
-	_map.printMap();
+	_map->printMap();
 	return ((float)(countHit))/(countMiss + countHit);
 }
 
@@ -115,12 +115,12 @@ double Particle::calculatePrediction(double deltaX, double deltaY, double deltaY
 		return 1.0;
 }
 
-void Particle::setMap(Map map)
+void Particle::setMap(Map* map)
 {
 	_map = map;
 }
 
-Map Particle::getMap()
+Map* Particle::getMap()
 {
 	return _map;
 }
@@ -137,7 +137,7 @@ double Particle::convertIndexToAngle(int i, int x, int r)
 
 void Particle::printMap()
 {
-	_map.printMap();
+	_map->printMap();
 }
 
 void Particle::setYaw(double yaw)

@@ -22,8 +22,8 @@ public:
 	static const int OCCUPIED_CELL = 1;
 	static const int UNKNOWN_CELL = 2;
 
-	static const int MAP_ROWS = 100;
-	static const int MAP_COLUMNS = 100;
+	static const int MAP_HEIGHT = 380;
+	static const int MAP_WIDTH = 550;
 	static const int MAP_RESOLUTION = 2.5;
 
 	static int IndexToDegrees(int index);

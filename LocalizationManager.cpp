@@ -35,8 +35,8 @@ void LocalizaionManager::UpdateParticles(double deltaX, double deltaY, double de
 			counter++;
 			if (counter%13==0)
 			{
-				Map m = pd->getMap();
-				m.printMap();
+				Map* m = pd->getMap();
+				m->printMap();
 
 				cout << endl << endl;
 

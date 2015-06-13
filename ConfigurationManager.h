@@ -19,7 +19,7 @@ private:
 	string _mapPath;
 	int _startLocationX;
 	int _startLocationY;
-	int _startLocationYaw;
+	double _startLocationYaw;
 	int _goalX;
 	int _goalY;
 	double _robotWidth;
@@ -36,7 +36,7 @@ public:
 	string GetMapPath();
 	int GetStartLocationX();
 	int GetStartLocationY();
-	int GetStartLocationYaw();
+	double GetStartLocationYaw();
 	int GetGoalX();
 	int GetGoalY();
 	double GetRobotWidth();

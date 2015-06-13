@@ -2,6 +2,11 @@
 #define PARTICLE_H_
 #include "Map.h"
 #include "Location.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <iostream>
+#include <time.h>
 
 #define MAX_ACCURATE_ANGLE_TO_MOVE 1.0
 #define NORMAL_ACCURATE_ANGLE_TO_MOVE 0.5
@@ -29,10 +34,10 @@ private:
 	double _belief;
 
 public:
-	Particle(double x, double y);
-	void updateParticle(double deltaX, double deltaY, double deltaYaw, float laserScan[], int laserCount);
-	double calculatePrediction(double deltaX, double deltaY, double deltaYaw);
-	double probabilityUpdateMapUsingScan(float laserScan[], int laserCount);
+	Particle(double x, double y, double belief);
+	void update(double deltaX, double deltaY, double deltaYaw, float laserScan[], int laserCount);
+	double probByMov(double deltaX, double deltaY, double deltaYaw);
+	double probByMeasurement(float laserScan[], int laserCount);
 	void setMap(Map map);
 	Map getMap();
 	double getBelief();

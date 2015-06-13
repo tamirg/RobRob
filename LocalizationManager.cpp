@@ -1,21 +1,21 @@
-#include "LocalizaionManager.h"
+#include "LocalizationManager.h"
 
-LocalizaionManager::LocalizaionManager(double x,double y)
+LocalizationManager::LocalizationManager(double x,double y)
 {
 	srand(time(NULL));
 	InitParticles(x,y);
 }
 
-void LocalizaionManager::InitParticles(double x,double y)
+void LocalizationManager::InitParticles(double x,double y)
 {
 	for (int p=0; p < PARTICLES_QTY; p++)
 	{
-		Particle newP(x,y);
+		Particle newP(x, y, 1.0);
 		_particleVector.push_back(newP);
 	}
 }
 
-void LocalizaionManager::UpdateParticles(double deltaX, double deltaY, double deltaTetha,float laserScan[])
+void LocalizationManager::UpdateParticles(double deltaX, double deltaY, double deltaTetha,float laserScan[])
 {
 	ParticleVector::iterator pd = _particleVector.begin();
 	ParticleVector::iterator pEnd = _particleVector.end();
@@ -24,7 +24,7 @@ void LocalizaionManager::UpdateParticles(double deltaX, double deltaY, double de
 
 	while(pd!=pEnd)
 	{
-		pd->updateParticle(deltaX,deltaY, deltaTetha,laserScan,Helper::HALF_SCAN_SPAN);
+		pd->update(deltaX,deltaY, deltaTetha,laserScan,Helper::HALF_SCAN_SPAN);
 
 		if (pd->getBelief() < THRESHOLD && _particleVector.size()>1)
 		{
@@ -47,7 +47,7 @@ void LocalizaionManager::UpdateParticles(double deltaX, double deltaY, double de
 			{
 				Location* pLocation = pd->getLocation();
 
-				Particle newParticle(pLocation->getX(),pLocation->getY());
+				Particle newParticle(pLocation->getX(),pLocation->getY(), pd->getBelief());
 				newParticle.setYaw(pLocation->getYaw());
 				newParticle.setMap(pd->getMap());
 				_particleVector.push_back(newParticle);
@@ -60,6 +60,6 @@ void LocalizaionManager::UpdateParticles(double deltaX, double deltaY, double de
 	}
 }
 
-LocalizaionManager::~LocalizaionManager()
+LocalizationManager::~LocalizationManager()
 {
 }

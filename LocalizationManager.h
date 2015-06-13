@@ -1,5 +1,5 @@
-#ifndef SLAMMANAGER_H_
-#define SLAMMANAGER_H_
+#ifndef LOCALIZATIONMANAGER_H_
+#define LOCALIZATIONMANAGER_H_
 
 #include <vector>
 #include <libplayerc++/playerc++.h>
@@ -10,17 +10,17 @@
 #define THRESHOLD 0.6
 typedef vector <Particle> ParticleVector;
 
-class LocalizaionManager
+class LocalizationManager
 {
 
 private:
 	ParticleVector _particleVector;
 
 public:
-	LocalizaionManager(double x,double y);
+	LocalizationManager(double x,double y);
 	void InitParticles(double x,double y);
 	void UpdateParticles(double delX, double delY, double delTetha,float laserScan[]);
-	virtual ~LocalizaionManager();
+	virtual ~LocalizationManager();
 };
 
-#endif /* LocalizaionManager */
+#endif /* LocalizationManager */

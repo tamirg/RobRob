@@ -25,7 +25,7 @@ ConfigurationManager::ConfigurationManager()
 		this->RemoveParameterName(&strParameter);
 		this->_startLocationX = this->GetNextInt(&strParameter);
 		this->_startLocationY = this->GetNextInt(&strParameter);
-		this->_startLocationYaw = this->GetNextInt(&strParameter);
+		this->_startLocationYaw = this->GetNextDouble(&strParameter);
 
 		// Get robot's goal
 		getline (parametersFile,strParameter);
@@ -130,7 +130,7 @@ int ConfigurationManager::GetStartLocationY()
 	return (this->_startLocationY);
 }
 
-int ConfigurationManager::GetStartLocationYaw()
+double ConfigurationManager::GetStartLocationYaw()
 {
 	return (this->_startLocationYaw);
 }

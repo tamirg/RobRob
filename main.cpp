@@ -3,6 +3,7 @@
 #include "Robot.h"
 #include "Plans/PlnObstacleAvoid.h"
 #include "MapLibraries/pngUtil.h"
+#include "ConfigurationManager.h"
 
 using namespace std;
 

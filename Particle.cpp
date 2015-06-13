@@ -1,18 +1,14 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <iostream>
-#include <time.h>
+
 
 #include "Particle.h"
 
-Particle::Particle(double x,double y)
+Particle::Particle(double x,double y, double belief)
 {
 	Location* _location = new Location();
 	_location->setX((double)rand()/((double)RAND_MAX/30) - PARTICLE_CLOUD_RADIUS + x);
 	_location->setY((double)rand()/((double)RAND_MAX/30) - PARTICLE_CLOUD_RADIUS + y);
 	_location->setYaw(DTOR(rand() % 360));
-	_belief = 1.0;
+	_belief = belief;
 
 	int mapX,mapY;
 
@@ -22,17 +18,17 @@ Particle::Particle(double x,double y)
 			_map->setCellValue(mapX+i, mapY+j, Helper::FREE_CELL);
 }
 
-void Particle::updateParticle(double deltaX, double deltaY, double deltaYaw, float laserScan[], int laserCount)
+void Particle::update(double deltaX, double deltaY, double deltaYaw, float laserScan[], int laserCount)
 {
 	_location.setX(_location.getX()+M_TO_CM(deltaX));
 	_location.setY(_location.getY()+M_TO_CM(deltaY));
 	_location.setYaw(_location.getYaw()+deltaYaw);
 
-	double predictionBelief = _belief * calculatePrediction(deltaX, deltaY, deltaYaw);
-	_belief =  predictionBelief * probabilityUpdateMapUsingScan(laserScan,laserCount);
+	double predictionBelief = _belief * probByMov(deltaX, deltaY, deltaYaw);
+	_belief =  predictionBelief * probByMeasurement(laserScan,laserCount);
 }
 
-double Particle::probabilityUpdateMapUsingScan(float laserScan[], int laserCount)
+double Particle::probByMeasurement(float laserScan[], int laserCount)
 {
 	int countMiss = 0;
 	int countHit = 0;
@@ -93,7 +89,7 @@ double Particle::probabilityUpdateMapUsingScan(float laserScan[], int laserCount
 	return ((float)(countHit))/(countMiss + countHit);
 }
 
-double Particle::calculatePrediction(double deltaX, double deltaY, double deltaYaw)
+double Particle::probByMov(double deltaX, double deltaY, double deltaYaw)
 {
 	double distance = sqrt(pow(deltaX,2)+pow(deltaY,2));
 

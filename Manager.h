@@ -4,7 +4,7 @@
 #include "Plans/Plan.h"
 #include "Behaviours/Behavior.h"
 #include "Robot.h"
-#include "LocalizaionManager.h"
+#include "LocalizationManager.h"
 
 class Manager
 {
@@ -12,7 +12,7 @@ private:
 	Robot* _robot;
 	Plan* _plan;
 	Behavior* _curr;
-	LocalizaionManager* _LocalizationManager;
+	LocalizationManager* _LocalizationManager;
 	float _laserScan[SCAN_SPAN];
 
 public:

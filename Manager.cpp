@@ -6,7 +6,7 @@ Manager::Manager(Robot* robot, Plan* plan)
 	_robot = robot;
 	_plan = plan;
 	_curr = plan->startPoint();
-	_LocalizationManager = new LocalizaionManager(_robot->_location->getX(),_robot->_location->getY());
+	_LocalizationManager = new LocalizationManager(_robot->_location->getX(),_robot->_location->getY());
 }
 
 void Manager::run()

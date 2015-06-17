@@ -12,8 +12,8 @@ Robot::Robot(char* ip, int port, ConfigurationManager* config)
 	_location = new Location(config->GetStartLocationX(), config->GetStartLocationY(), config->GetStartLocationYaw());
 
 	_pp->SetMotorEnable(true);
-	int i;
-	for(i=0;i<15;i++)
+	
+	for(int i=0;i<15;i++)
 		_pc->Read();
 }
 
@@ -55,6 +55,7 @@ double Robot::getHeight()
 
 Robot::~Robot()
 {
+	delete _location;
 	delete _lp;
 	delete _pp;
 	delete _pc;

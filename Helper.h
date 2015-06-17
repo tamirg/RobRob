@@ -10,7 +10,6 @@ class Helper
 
 public:
 	static const float MINIMUM_WALL_RANGE_SIDES = 0.6;
-	static const float MINIMUM_WALL_RANGE_FORWARD = 1;
 	static const float MINIMUM_WALL_RANGE = 0.8;
 	static const float TOTAL_SCAN_SPAN = SCAN_SPAN;
 	static const float HALF_SCAN_SPAN = SCAN_SPAN / 2;

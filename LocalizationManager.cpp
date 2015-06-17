@@ -1,53 +1,46 @@
 #include "LocalizationManager.h"
 
-LocalizationManager::LocalizationManager(double x,double y)
-{
+LocalizationManager::LocalizationManager(double x, double y) {
 	srand(time(NULL));
-	InitParticles(x,y);
+	InitParticles(x, y);
 }
 
-void LocalizationManager::InitParticles(double x,double y)
-{
-	for (int p=0; p < PARTICLES_QTY; p++)
-	{
+void LocalizationManager::InitParticles(double x, double y) {
+	for (int p = 0; p < PARTICLES_QTY; p++) {
 		Particle newP(x, y, 1.0);
 		_particleVector.push_back(newP);
 	}
 }
 
-void LocalizationManager::UpdateParticles(double deltaX, double deltaY, double deltaTetha,float laserScan[])
-{
+void LocalizationManager::UpdateParticles(double deltaX, double deltaY,
+		double deltaTetha, float laserScan[]) {
 	ParticleVector::iterator pd = _particleVector.begin();
 	ParticleVector::iterator pEnd = _particleVector.end();
 
-	int counter=0;
+	int counter = 0;
 
-	while(pd!=pEnd)
-	{
-		pd->update(deltaX,deltaY, deltaTetha,laserScan,Helper::HALF_SCAN_SPAN);
+	while (pd != pEnd) {
+		pd->update(deltaX, deltaY, deltaTetha, laserScan,
+				Helper::HALF_SCAN_SPAN);
 
-		if (pd->getBelief() < THRESHOLD && _particleVector.size()>1)
-		{
+		if (pd->getBelief() < THRESHOLD && _particleVector.size() > 1) {
 			_particleVector.erase(pd);
-		}
-		else
-		{
+		} else {
 			counter++;
-			if (counter%13==0)
-			{
+			if (counter % 13 == 0) {
 				Map* m = pd->getMap();
-				m->printMap();
+//				m->printMap();
 
 				cout << endl << endl;
 
-				counter=0;
+				counter = 0;
 			}
 
-			if(_particleVector.size() < PARTICLES_QTY)
-			{
+			if (_particleVector.size() < PARTICLES_QTY) {
 				Location* pLocation = pd->getLocation();
 
-				Particle newParticle(pLocation->getX(),pLocation->getY(), pd->getBelief());
+				Particle newParticle(pLocation->getX(), pLocation->getY(),
+						pd->getBelief());
 				newParticle.setYaw(pLocation->getYaw());
 				newParticle.setMap(pd->getMap());
 				_particleVector.push_back(newParticle);
@@ -60,6 +53,5 @@ void LocalizationManager::UpdateParticles(double deltaX, double deltaY, double d
 	}
 }
 
-LocalizationManager::~LocalizationManager()
-{
+LocalizationManager::~LocalizationManager() {
 }

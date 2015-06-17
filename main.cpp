@@ -10,7 +10,7 @@ using namespace std;
 int main(int argc, char** argv)
 {
 	ConfigurationManager configManager;
-	Robot robot("localhost",6665, &configManager);
+	Robot robot("10.10.245.65",6665, &configManager);
 	Map map(&configManager, &robot);
 	PlnObstacleAvoid pln(&robot);
 	Manager m(&robot,&pln);

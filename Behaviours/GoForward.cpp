@@ -14,8 +14,8 @@ void GoForward::action() {
 }
 
 bool GoForward::stopCond() {
-	for (int i = Helper::DegreesToIndex(-30); i < Helper::DegreesToIndex(30); i++) {
-		//cout << "forward dist: "<< _robot->getLaserDistance(i) << " , " << i << endl;
+	for (int i = Helper::DegreesToIndex(-45); i < Helper::DegreesToIndex(45); i++) {
+		cout << "forward dist: "<< _robot->getLaserDistance(i) << " , " << i << endl;
 		if (_robot->getLaserDistance(i) < Helper::MINIMUM_WALL_RANGE) {
 			cout << "GoForward stop cond triggered" << endl;
 			return true;

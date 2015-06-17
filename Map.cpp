@@ -31,11 +31,11 @@ void Map::printBlownMap() {
 }
 
 int Map::calculateXIndex(int x) {
-	return (x / Helper::MAP_RESOLUTION) + (Helper::MAP_WIDTH / 2);
+	return (x / Helper::MAP_RESOLUTION);
 }
 
 int Map::calculateYIndex(int y) {
-	return (y / Helper::MAP_RESOLUTION) - (Helper::MAP_HEIGHT / 2);
+	return (y / Helper::MAP_RESOLUTION);
 }
 
 void Map::getMapCoordinates(double realX, double realY, int &mapX, int &mapY) {

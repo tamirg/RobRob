@@ -24,8 +24,7 @@ Behavior* Behavior::addNext(Behavior* beh)
 
 Behavior* Behavior::selectNext()
 {
-	int i;
-	for(i=0;i<_arrSize;i++)
+	for(int i=0;i<_arrSize;i++)
 		if(_next[i]->startCond())
 			return _next[i];
 

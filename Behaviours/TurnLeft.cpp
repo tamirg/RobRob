@@ -1,47 +1,35 @@
 #include "TurnLeft.h"
 
-TurnLeft::TurnLeft(Robot* robot):Behavior(robot)
-{
+TurnLeft::TurnLeft(Robot* robot) :
+		Behavior(robot) {
 }
 
-bool TurnLeft::startCond()
-{
-	for (int i = Helper::DegreesToIndex(-30); i< Helper::DegreesToIndex(0); i++)
-	{
-		if (_robot->getLaserDistance(i) < Helper::MINIMUM_WALL_RANGE)
-		{
-			for (int j = Helper::DegreesToIndex(0); j < Helper::DegreesToIndex(30); j++)
-			{
-				if (_robot->getLaserDistance(j) > (Helper::MINIMUM_WALL_RANGE * 1.5))
-				{
-					cout << "TurnLeft start cond triggered" << endl;
-					return true;
-				}
-			}
+bool TurnLeft::startCond() {
+	for (int j = Helper::DegreesToIndex(0); j < Helper::DegreesToIndex(30);
+			j++) {
+		if (_robot->getLaserDistance(j) <= (Helper::MINIMUM_WALL_RANGE * 1.2)) {
+			return false;
 		}
 	}
-	return false;
+	cout << "TurnLeft start cond triggered" << endl;
+	return true;
 }
 
-bool TurnLeft::stopCond()
-{
-	for (int i= Helper::DegreesToIndex(-30) ; i<(Helper::DegreesToIndex(30)) ; i++)
-	{
-		if (_robot->getLaserDistance(i) < Helper::MINIMUM_WALL_RANGE)
-		{
-			cout << "TurnLeft stop cond triggered" << endl;
-			return true;
+bool TurnLeft::stopCond() {
+	for (int i = Helper::DegreesToIndex(-30); i < (Helper::DegreesToIndex(30));
+			i++) {
+		if (_robot->getLaserDistance(i) < Helper::MINIMUM_WALL_RANGE * 1.2) {
+			return !(startCond());
 		}
 
 	}
-	return false;
+	cout << "TurnLeft stop cond triggered" << endl;
+	return true;
 }
 
-void TurnLeft::action()
-{
-	_robot->setSpeed(0.0,1.5);
+void TurnLeft::action() {
+	_robot->setSpeed(0, 1.2);
 }
 
-TurnLeft::~TurnLeft()
-{
+TurnLeft::~TurnLeft() {
 }

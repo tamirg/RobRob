@@ -19,7 +19,7 @@
 #define DTOR(d) ((d) * M_PI / 180)
 #define NORMALIZE(z) atan2(sin(z), cos(z))
 #define M_TO_CM(m) (m * 100)
-#define ROBOT_DIMENTION_ON_MAP 2
+#define ROBOT_DIMENTION_ON_MAP 3
 #define SENSOR_FROM_END 15
 #define SENSOR_DETECTION_RANGE 60
 #define PARTICLE_CLOUD_RADIUS 15

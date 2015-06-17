@@ -23,27 +23,28 @@ vector<vector<int> >  convertPngToPixels(const char* filename) {
 
 	vector<unsigned char> navImage; //the raw pixels
 	navImage.resize(width * height * 4);
-	vector<vector<int> > mapGrid(Helper::MAP_HEIGHT, vector<int>(Helper::MAP_WIDTH));
+	vector<vector<int> > mapPixelGrid(Helper::MAP_HEIGHT, vector<int>(Helper::MAP_WIDTH));
 	unsigned char color;
-	for (y = 0; y < height; y++)
+	cout << "Start!";
+	for (y = 0; y < height; y++) {
 		for (x = 0; x < width; x++) {
 			if (image[y * width * 4 + x * 4 + 0]
 					|| image[y * width * 4 + x * 4 + 1]
 					|| image[y * width * 4 + x * 4 + 2]) {
 				color = 255;
-				mapGrid[y][x] = Helper::FREE_CELL;
+				mapPixelGrid[y][x] = Helper::FREE_CELL;
 			} else {
 				color = 0;
-				mapGrid[y][x] = Helper::OCCUPIED_CELL;
+				mapPixelGrid[y][x] = Helper::OCCUPIED_CELL;
 			}
 			navImage[y * width * 4 + x * 4 + 0] = color;
 			navImage[y * width * 4 + x * 4 + 1] = color;
 			navImage[y * width * 4 + x * 4 + 2] = color;
 			navImage[y * width * 4 + x * 4 + 3] = 255;
 		}
-	cout << "width: " << width << " height: " << height;
-	return mapGrid;
+	}
 //	encodeOneStep("newMap.png", navImage, width, height);
+	return mapPixelGrid;
 }
 
 void decodeOneStep(const char* filename) {

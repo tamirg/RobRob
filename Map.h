@@ -18,12 +18,7 @@ class Map
 	double _gridResolutionCM;
 	Robot* _robot;
 
-	int calculateXIndex(int x);
-	int calculateYIndex(int y);
-	void constructBlownMap(vector<vector<int> > mapPixelGrid);
-
 public:
-	Map();
 	Map(ConfigurationManager* configurationManager, Robot* robot);
 	void getMapCoordinates(double realX,double realY,int &mapX,int &mapY);
 	int getCellValue(int x, int y);
@@ -31,7 +26,9 @@ public:
 	void printMap();
 	void printBlownMap();
 	void reloadMapFromFile();
-
+	int calculateXIndex(int x);
+	int calculateYIndex(int y);
+	void constructBlownMap(vector<vector<int> > mapPixelGrid);
 };
 
 #endif /* MAP_H_ */

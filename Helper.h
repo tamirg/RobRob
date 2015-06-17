@@ -24,7 +24,8 @@ public:
 
 	static const int MAP_HEIGHT = 380;
 	static const int MAP_WIDTH = 550;
-	static const int MAP_RESOLUTION = 2.5;
+	static const int MAP_RESOLUTION = 10;
+	static const int BLOWN_MAP_PIXEL_RESOLUTION = 2.5;
 
 	static int IndexToDegrees(int index);
 	static int DegreesToIndex(int degrees);

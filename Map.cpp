@@ -1,10 +1,6 @@
 #include "Map.h"
 #include "MapLibraries/lodepng.h"
 
-Map::Map() {
-
-}
-
 Map::Map(ConfigurationManager* configurationManager, Robot* robot) {
 	_mapPath = configurationManager->GetMapPath();
 	_mapResolutionCM = configurationManager->GetMapResolutionCM();
@@ -12,13 +8,6 @@ Map::Map(ConfigurationManager* configurationManager, Robot* robot) {
 	_robot = robot;
 
 	reloadMapFromFile();
-
-//TODO: SEE IF NEEDED
-//	for (int i = 0; i < Helper::MAP_HEIGHT; i++) {
-//		for (int j = 0; j < Helper::MAP_WIDTH; j++) {
-//			_map[i][j] = Helper::UNKNOWN_CELL;
-//		}
-//	}
 }
 
 void Map::printMap() {
@@ -32,7 +21,7 @@ void Map::printMap() {
 }
 
 void Map::printBlownMap() {
-	cout << "Printing Map: " << endl;
+	cout << "Printing Blown Map: " << endl;
 	for (int i = 0; i < Helper::MAP_HEIGHT; i++) {
 		for (int j = 0; j < Helper::MAP_WIDTH; j++) {
 			cout << _blownMap[i][j];
@@ -40,7 +29,6 @@ void Map::printBlownMap() {
 		cout << endl;
 	}
 }
-
 
 int Map::calculateXIndex(int x) {
 	return (x / Helper::MAP_RESOLUTION) + (Helper::MAP_WIDTH / 2);
@@ -72,8 +60,11 @@ void Map::constructBlownMap(vector<vector<int> > mapPixelGrid) {
 		for (int column = 0; column < Helper::MAP_WIDTH; column++) {
 			if (mapPixelGrid[row][column] == Helper::FREE_CELL) {
 				_blownMap[row][column] = Helper::FREE_CELL;
+				_map[row][column] = Helper::FREE_CELL;
 			} else {
-				for (int i=1; i <= (_robot -> getWidth() / 2) / _mapResolutionCM; i++) {
+				_map[row][column] = Helper::OCCUPIED_CELL;
+				for (int i = 1;
+						i <= (_robot->getWidth() / 2) / _mapResolutionCM; i++) {
 					if (column + i <= Helper::MAP_WIDTH) {
 						_blownMap[row][column + i] = Helper::OCCUPIED_CELL;
 					}
@@ -90,13 +81,9 @@ void Map::constructBlownMap(vector<vector<int> > mapPixelGrid) {
 			}
 		}
 	}
-
-
 }
 
 void Map::reloadMapFromFile() {
 	vector<vector<int> > mapPixelGrid = convertPngToPixels(MAP_FILE_PATH);
-
 	constructBlownMap(mapPixelGrid);
-	printBlownMap();
 }

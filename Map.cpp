@@ -37,14 +37,14 @@ void Map::printBlownMap() {
 }
 
 int Map::calculateXIndex(int x) {
-	return (x / Helper::MAP_RESOLUTION);
+	return (x / _mapResolutionCM);
 }
 
 int Map::calculateYIndex(int y) {
-	return (y / Helper::MAP_RESOLUTION);
+	return (y / _mapResolutionCM);
 }
 
-void Map::getMapCoordinates(double realX, double realY, int &mapX, int &mapY) {
+void Map::getNavMapCoordinates(double realX, double realY, int &mapX, int &mapY) {
 	mapX = calculateXIndex(realX);
 	mapY = calculateYIndex(realY);
 }

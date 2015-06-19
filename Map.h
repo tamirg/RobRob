@@ -25,7 +25,7 @@ class Map
 public:
 	Map(ConfigurationManager* configurationManager, Robot* robot);
 	virtual ~Map();
-	void getMapCoordinates(double realX,double realY,int &mapX,int &mapY);
+	void getNavMapCoordinates(double realX,double realY,int &mapX,int &mapY);
 	int getNavMapCellValue(int x, int y);
 	void setNavMapCellValue(int x, int y, int value);
 	void printMap();

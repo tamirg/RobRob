@@ -15,7 +15,6 @@ public:
 	static const float TOTAL_SCAN_SPAN = SCAN_SPAN;
 	static const float HALF_SCAN_SPAN = SCAN_SPAN / 2;
 	static const float TOTAL_DEGREES = DEGREES;
-
 	static const float DEGREES_INDEX_RATIO = SCAN_SPAN / DEGREES;
 
 	static const int FREE_CELL = 0;

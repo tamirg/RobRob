@@ -10,8 +10,12 @@ Manager::Manager(Robot* robot, Plan* plan, Map* map,
 			_robot->_location->getY());
 	
 	Graph* graph = mapConverter->matrixToGraph(map);
-	//TODO: complete
-//	pathFinder->aStarSearch(graph, config, )
+
+	GraphLocation* startLocation = new GraphLocation(config->GetStartLocationX(), config->GetStartLocationY());
+	GraphLocation* targetLocation = new GraphLocation(config->GetGoalX(), config->GetGoalY());
+
+	//TODO: doitch do your magic
+//	pathFinder->aStarSearch(graph, startLocation, targetLocation,  )
 
 	delete graph;
 }

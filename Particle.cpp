@@ -12,7 +12,7 @@ Particle::Particle(double x,double y, double belief)
 
 	int mapX,mapY;
 
-	_map->getMapCoordinates(_location->getX(),_location->getY(),mapX,mapY);
+	_map->getNavMapCoordinates(_location->getX(),_location->getY(),mapX,mapY);
 	for (int i=-ROBOT_DIMENTION_ON_MAP; i<ROBOT_DIMENTION_ON_MAP; i++)
 		for (int j=-ROBOT_DIMENTION_ON_MAP; j<ROBOT_DIMENTION_ON_MAP; j++)
 			_map->setNavMapCellValue(mapX+i, mapY+j, Helper::FREE_CELL);
@@ -43,7 +43,7 @@ double Particle::probByMeasurement(float laserScan[], int laserCount)
 				{
 					objectX = (j * cos(DTOR(convertIndexToAngle(i,laserCount,LASER_ANGLE_RANGE)) + _location.getYaw())) + _location.getX();
 					objectY = (j * sin(DTOR(convertIndexToAngle(i,laserCount,LASER_ANGLE_RANGE)) + _location.getYaw())) + _location.getY();
-					_map->getMapCoordinates(objectX,objectY,objectXOnMap,objectYOnMap);
+					_map->getNavMapCoordinates(objectX,objectY,objectXOnMap,objectYOnMap);
 
 					if (_map->getNavMapCellValue(objectXOnMap,objectYOnMap) == Helper::UNKNOWN_CELL)
 					{
@@ -65,7 +65,7 @@ double Particle::probByMeasurement(float laserScan[], int laserCount)
 			{
 				objectX = ((M_TO_CM(laserScan[i])) * cos(DTOR(convertIndexToAngle(i,laserCount,LASER_ANGLE_RANGE)) + _location.getYaw())) + _location.getX();
 				objectY = ((M_TO_CM(laserScan[i])) * sin(DTOR(convertIndexToAngle(i,laserCount,LASER_ANGLE_RANGE)) + _location.getYaw())) + _location.getY();
-				_map->getMapCoordinates(objectX,objectY,objectXOnMap,objectYOnMap);
+				_map->getNavMapCoordinates(objectX,objectY,objectXOnMap,objectYOnMap);
 
 				if (_map->getNavMapCellValue(objectXOnMap,objectYOnMap) == Helper::UNKNOWN_CELL)
 				{

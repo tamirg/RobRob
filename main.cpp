@@ -11,14 +11,14 @@ int main(int argc, char** argv)
 {
 	ConfigurationManager configManager;
 //  Real Robot
-	Robot robot("10.10.245.64",6665, &configManager);
+//	Robot robot("10.10.245.64",6665, &configManager);
 
 //  Simulator
-//	Robot robot("localhost",6665, &configManager);
+	Robot robot("localhost",6665, &configManager);
 	Map map(&configManager, &robot);
 	PlnObstacleAvoid pln(&robot);
-	MapToGraphConverter mapToGraphConverter();
-	PathFinder pathFinder();
-	Manager manager(&robot,&pln, &map, &mapToGraphConverter, &pathFinder);
+	MapToGraphConverter mapToGraphConverter;
+	PathFinder pathFinder;
+	Manager manager(&robot,&pln, &map, &configManager ,&mapToGraphConverter, &pathFinder);
 	manager.run();
 }

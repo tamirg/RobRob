@@ -5,6 +5,9 @@
 #include "Behaviours/Behavior.h"
 #include "Robot.h"
 #include "LocalizationManager.h"
+#include "Plans/PathFinder.h"
+#include "Plans/MapToGraphConverter.h"
+#include "ConfigurationManager.h"
 
 class Manager
 {

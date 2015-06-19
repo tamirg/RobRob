@@ -23,7 +23,7 @@ vector<vector<int> >  convertPngToPixels(const char* filename) {
 
 	vector<unsigned char> navImage; //the raw pixels
 	navImage.resize(width * height * 4);
-	vector<vector<int> > mapPixelGrid(Helper::MAP_HEIGHT, vector<int>(Helper::MAP_WIDTH));
+	vector<vector<int> > mapPixelGrid(height, vector<int>(width));
 	unsigned char color;
 	cout << "Start!";
 	for (y = 0; y < height; y++) {
@@ -43,7 +43,6 @@ vector<vector<int> >  convertPngToPixels(const char* filename) {
 			navImage[y * width * 4 + x * 4 + 3] = 255;
 		}
 	}
-//	encodeOneStep("newMap.png", navImage, width, height);
 	return mapPixelGrid;
 }
 

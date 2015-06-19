@@ -8,7 +8,6 @@ Robot::Robot(char* ip, int port, ConfigurationManager* config)
 	_pc = new PlayerClient(ip,port);
 	_pp = new Position2dProxy(_pc);
 	_lp = new LaserProxy(_pc);
-
 	_location = new Location(config->GetStartLocationX(), config->GetStartLocationY(), config->GetStartLocationYaw());
 
 	_pp->SetMotorEnable(true);

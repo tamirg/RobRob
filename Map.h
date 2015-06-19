@@ -11,8 +11,12 @@ using namespace std;
 
 class Map
 {
-	int _map[Helper::MAP_HEIGHT][Helper::MAP_WIDTH];
-	int _blownMap[Helper::MAP_HEIGHT][Helper::MAP_WIDTH];
+	int _blownMapWidth;
+	int _blownMapHeight;
+	int _navMapWidth;
+	int _navMapHeight;
+	int* _navMap;
+	int* _blownMap;
 	string _mapPath;
 	double _mapResolutionCM;
 	double _gridResolutionCM;
@@ -20,15 +24,24 @@ class Map
 
 public:
 	Map(ConfigurationManager* configurationManager, Robot* robot);
+	virtual ~Map();
 	void getMapCoordinates(double realX,double realY,int &mapX,int &mapY);
-	int getCellValue(int x, int y);
-	void setCellValue(int x, int y, int value);
+	int getNavMapCellValue(int x, int y);
+	void setNavMapCellValue(int x, int y, int value);
 	void printMap();
 	void printBlownMap();
-	void reloadMapFromFile();
 	int calculateXIndex(int x);
 	int calculateYIndex(int y);
 	void constructBlownMap(vector<vector<int> > mapPixelGrid);
+	void constructNavMap(vector<vector<int> > mapPixelGrid);
+	int* getBlownMap();
+	int getBlownMapWidth();
+	int getBlownMapHeight();
+	int getNavMapWidth();
+	int getNavMapHeight();
+private:
+	int innerGridScanForObstacles(int row, int col, vector<vector<int> > mapPixelGrid);
+	void reloadMapFromFile();
 };
 
 #endif /* MAP_H_ */

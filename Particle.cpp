@@ -15,7 +15,7 @@ Particle::Particle(double x,double y, double belief)
 	_map->getMapCoordinates(_location->getX(),_location->getY(),mapX,mapY);
 	for (int i=-ROBOT_DIMENTION_ON_MAP; i<ROBOT_DIMENTION_ON_MAP; i++)
 		for (int j=-ROBOT_DIMENTION_ON_MAP; j<ROBOT_DIMENTION_ON_MAP; j++)
-			_map->setCellValue(mapX+i, mapY+j, Helper::FREE_CELL);
+			_map->setNavMapCellValue(mapX+i, mapY+j, Helper::FREE_CELL);
 }
 
 void Particle::update(double deltaX, double deltaY, double deltaYaw, float laserScan[], int laserCount)
@@ -45,17 +45,17 @@ double Particle::probByMeasurement(float laserScan[], int laserCount)
 					objectY = (j * sin(DTOR(convertIndexToAngle(i,laserCount,LASER_ANGLE_RANGE)) + _location.getYaw())) + _location.getY();
 					_map->getMapCoordinates(objectX,objectY,objectXOnMap,objectYOnMap);
 
-					if (_map->getCellValue(objectXOnMap,objectYOnMap) == Helper::UNKNOWN_CELL)
+					if (_map->getNavMapCellValue(objectXOnMap,objectYOnMap) == Helper::UNKNOWN_CELL)
 					{
-						_map->setCellValue(objectXOnMap,objectYOnMap, Helper::FREE_CELL);
+						_map->setNavMapCellValue(objectXOnMap,objectYOnMap, Helper::FREE_CELL);
 						countHit++;
 					}
-					else if(_map->getCellValue(objectXOnMap,objectYOnMap) == Helper::OCCUPIED_CELL)
+					else if(_map->getNavMapCellValue(objectXOnMap,objectYOnMap) == Helper::OCCUPIED_CELL)
 					{
-						_map->setCellValue(objectXOnMap,objectYOnMap, Helper::FREE_CELL);
+						_map->setNavMapCellValue(objectXOnMap,objectYOnMap, Helper::FREE_CELL);
 						countMiss++;
 					}
-					else if(_map->getCellValue(objectXOnMap,objectYOnMap) == Helper::FREE_CELL)
+					else if(_map->getNavMapCellValue(objectXOnMap,objectYOnMap) == Helper::FREE_CELL)
 					{
 						countHit++;
 					}
@@ -67,25 +67,25 @@ double Particle::probByMeasurement(float laserScan[], int laserCount)
 				objectY = ((M_TO_CM(laserScan[i])) * sin(DTOR(convertIndexToAngle(i,laserCount,LASER_ANGLE_RANGE)) + _location.getYaw())) + _location.getY();
 				_map->getMapCoordinates(objectX,objectY,objectXOnMap,objectYOnMap);
 
-				if (_map->getCellValue(objectXOnMap,objectYOnMap) == Helper::UNKNOWN_CELL)
+				if (_map->getNavMapCellValue(objectXOnMap,objectYOnMap) == Helper::UNKNOWN_CELL)
 				{
-					_map->setCellValue(objectXOnMap,objectYOnMap, Helper::OCCUPIED_CELL);
+					_map->setNavMapCellValue(objectXOnMap,objectYOnMap, Helper::OCCUPIED_CELL);
 					countHit++;
 				}
-				else if (_map->getCellValue(objectXOnMap,objectYOnMap) == Helper::OCCUPIED_CELL)
+				else if (_map->getNavMapCellValue(objectXOnMap,objectYOnMap) == Helper::OCCUPIED_CELL)
 				{
 					countHit++;
 				}
-				else if(_map->getCellValue(objectXOnMap,objectYOnMap) == Helper::FREE_CELL)
+				else if(_map->getNavMapCellValue(objectXOnMap,objectYOnMap) == Helper::FREE_CELL)
 				{
-					_map->setCellValue(objectXOnMap,objectYOnMap, Helper::OCCUPIED_CELL);
+					_map->setNavMapCellValue(objectXOnMap,objectYOnMap, Helper::OCCUPIED_CELL);
 					countMiss++;
 				}
 			}
 		}
 
 
-	_map->printMap();
+//	_map->printMap();
 	return ((float)(countHit))/(countMiss + countHit);
 }
 

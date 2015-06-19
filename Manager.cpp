@@ -1,11 +1,23 @@
 #include "Manager.h"
 
-Manager::Manager(Robot* robot, Plan* plan) {
+Manager::Manager(Robot* robot, Plan* plan, Map* map,
+		ConfigurationManager* config, MapToGraphConverter* mapConverter,
+		PathFinder* pathFinder) {
 	_robot = robot;
 	_plan = plan;
 	_curr = plan->startPoint();
 	_LocalizationManager = new LocalizationManager(_robot->_location->getX(),
 			_robot->_location->getY());
+	
+	Graph* graph = mapConverter->matrixToGraph(map);
+	//TODO: complete
+//	pathFinder->aStarSearch(graph, config, )
+
+	delete graph;
+}
+
+Manager::~Manager() {
+
 }
 
 void Manager::run() {
@@ -24,7 +36,7 @@ void Manager::run() {
 			if (!_curr) {
 				break;
 			}
-	}
+		}
 
 //		_robot->getDelta(dX,dY,dYaw);
 //		for (int i = 0; i < SCAN_SPAN; i++)
@@ -33,7 +45,4 @@ void Manager::run() {
 
 	}
 
-}
-
-Manager::~Manager() {
 }

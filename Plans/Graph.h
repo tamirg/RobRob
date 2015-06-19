@@ -8,7 +8,7 @@
 #ifndef GRAPH_H
 #define	GRAPH_H
 
-#include "Location.h"
+#include "GraphLocation.h"
 #include <vector>
 #include <map>
 
@@ -16,11 +16,11 @@ using namespace std;
 
 struct Graph
 {
-    Location location;
-    vector<Location>::iterator iterator;
-    map<Location, vector<Location> > edges;
+	GraphLocation location;
+    vector<GraphLocation>::iterator iterator;
+    map<GraphLocation, vector<GraphLocation> > edges;
     
-    inline const vector<Location> neighbors(Location id) {
+    inline const vector<GraphLocation> neighbors(GraphLocation id) {
         return edges[id];
     }
 };

@@ -16,7 +16,9 @@ private:
 	float _laserScan[SCAN_SPAN];
 
 public:
-	Manager(Robot* robot, Plan* plan);
+	Manager(Robot* robot, Plan* plan, Map* map, ConfigurationManager* config,
+			MapToGraphConverter* mapConverter, PathFinder* pathFinder);
+
 	void run();
 	virtual ~Manager();
 };

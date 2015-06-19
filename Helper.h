@@ -1,9 +1,10 @@
 #ifndef HELPER_H_
 #define HELPER_H_
+#include <vector>
 
 #define SCAN_SPAN  666
 #define DEGREES 270
-#define MAP_FILE_PATH "/home/colman/Desktop/roboticLabMap.png"
+
 
 class Helper
 {

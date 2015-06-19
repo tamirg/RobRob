@@ -29,7 +29,7 @@ bool TurnRight::stopCond() {
 }
 
 void TurnRight::action() {
-	_robot->setSpeed(0, -1.2);
+	_robot->setSpeed(0.5, -1.2);
 }
 
 TurnRight::~TurnRight() {

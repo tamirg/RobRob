@@ -28,7 +28,7 @@ bool TurnLeft::stopCond() {
 }
 
 void TurnLeft::action() {
-	_robot->setSpeed(0, 1.2);
+	_robot->setSpeed(0.5, 1.2);
 }
 
 TurnLeft::~TurnLeft() {

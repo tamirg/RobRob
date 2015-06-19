@@ -10,9 +10,15 @@ using namespace std;
 int main(int argc, char** argv)
 {
 	ConfigurationManager configManager;
-	Robot robot("10.10.245.65",6665, &configManager);
+//  Real Robot
+	Robot robot("10.10.245.64",6665, &configManager);
+
+//  Simulator
+//	Robot robot("localhost",6665, &configManager);
 	Map map(&configManager, &robot);
 	PlnObstacleAvoid pln(&robot);
-	Manager m(&robot,&pln);
-	m.run();
+	MapToGraphConverter mapToGraphConverter();
+	PathFinder pathFinder();
+	Manager manager(&robot,&pln, &map, &mapToGraphConverter, &pathFinder);
+	manager.run();
 }

@@ -18,8 +18,8 @@ Map::~Map() {
 
 void Map::printMap() {
 	cout << "Printing Map: " << endl;
-	for (int i = 0; i < Helper::MAP_HEIGHT; i++) {
-		for (int j = 0; j < Helper::MAP_WIDTH; j++) {
+	for (int i = 0; i < _blownMapHeight; i++) {
+		for (int j = 0; j < _blownMapWidth; j++) {
 			cout << _navMap[i * _navMapWidth + j];
 		}
 		cout << endl;
@@ -28,8 +28,8 @@ void Map::printMap() {
 
 void Map::printBlownMap() {
 	cout << "Printing Blown Map: " << endl;
-	for (int i = 0; i < Helper::MAP_HEIGHT; i++) {
-		for (int j = 0; j < Helper::MAP_WIDTH; j++) {
+	for (int i = 0; i < _blownMapHeight; i++) {
+		for (int j = 0; j < _blownMapWidth; j++) {
 			cout << _blownMap[i * _blownMapWidth + j];
 		}
 		cout << endl;
@@ -62,19 +62,19 @@ int Map::getNavMapCellValue(int x, int y) {
 }
 
 void Map::constructBlownMap(vector<vector<int> > mapPixelGrid) {
-	for (int row = 0; row < Helper::MAP_HEIGHT; row++) {
-		for (int column = 0; column < Helper::MAP_WIDTH; column++) {
+	for (int row = 0; row < _blownMapHeight; row++) {
+		for (int column = 0; column < _blownMapWidth; column++) {
 			if (mapPixelGrid[row][column] == Helper::FREE_CELL) {
 				_blownMap[row * _blownMapWidth + column] = Helper::FREE_CELL;
 			} else {
 				for (int i = 1;i <= (_robot->getWidth() / 2) / _mapResolutionCM; i++) {
-					if (column + i <= Helper::MAP_WIDTH) {
+					if (column + i <= _blownMapWidth) {
 						_blownMap[row * _blownMapWidth + column + i] = Helper::OCCUPIED_CELL;
 					}
 					if (column - i >= 0) {
 						_blownMap[row * _blownMapWidth + column - i] = Helper::OCCUPIED_CELL;
 					}
-					if (row + i <= Helper::MAP_HEIGHT) {
+					if (row + i <= _blownMapHeight) {
 						_blownMap[(row + i) * _blownMapWidth + column] = Helper::OCCUPIED_CELL;
 					}
 					if (row - i >= 0) {

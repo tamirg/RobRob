@@ -11,6 +11,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <wordexp.h>
 
 using namespace std;
 

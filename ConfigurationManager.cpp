@@ -18,7 +18,11 @@ ConfigurationManager::ConfigurationManager()
 		// Get map path
 		getline (parametersFile,strParameter);
 		this->RemoveParameterName(&strParameter);
-		this->_mapPath = strParameter;
+	   	wordexp_t exp_result;
+		wordexp(strParameter.c_str(), &exp_result, 0);
+		this->_mapPath = exp_result.we_wordv[0];
+		wordfree(&exp_result);
+
 
 		// Get robot's start location X, Y, Yaw
 		getline (parametersFile,strParameter);

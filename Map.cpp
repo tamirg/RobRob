@@ -52,13 +52,13 @@ void Map::getNavMapCoordinates(double realX, double realY, int &mapX, int &mapY)
 void Map::setNavMapCellValue(int x, int y, int value) {
 	int xIndex = calculateXIndex(x);
 	int yIndex = calculateYIndex(y);
-	_navMap[yIndex * _blownMapWidth + xIndex] = value;
+	_navMap[yIndex * _navMapWidth + xIndex] = value;
 }
 
 int Map::getNavMapCellValue(int x, int y) {
 	int xIndex = calculateXIndex(x);
 	int yIndex = calculateYIndex(y);
-	return _navMap[yIndex * _blownMapWidth + xIndex];
+	return _navMap[yIndex * _navMapWidth + xIndex];
 }
 
 void Map::constructBlownMap(vector<vector<int> > mapPixelGrid) {

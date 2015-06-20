@@ -9,6 +9,7 @@ Robot::Robot(char* ip, int port, ConfigurationManager* config)
 	_pp = new Position2dProxy(_pc);
 	_lp = new LaserProxy(_pc);
 	_location = new Location(config->GetStartLocationX(), config->GetStartLocationY(), config->GetStartLocationYaw());
+	_pp->SetOdometry(_location->getX(), _location->getY(), _location->getYaw());
 
 	_pp->SetMotorEnable(true);
 	
@@ -23,13 +24,17 @@ void Robot::read()
 
 void Robot::getDelta(double &dX,double &dY,double &dYaw)
 {
-	dX = _pp->GetXPos() - _location->getX();
-	dY = _pp->GetYPos() - _location->getY();
-	dYaw = _pp->GetYaw() - _location->getYaw();
+	double xNew = _pp->GetXPos();
+	double yNew = _pp->GetYPos();
+	double yawNew = _pp->GetYaw();
 
-	_location->setX(dX);
-	_location->setY(dY);
-	_location->setYaw(dYaw);
+	dX = xNew - _location->getX();
+	dY = yNew - _location->getY();
+	dYaw = yawNew - _location->getYaw();
+
+	_location->setX(xNew);
+	_location->setY(yNew);
+	_location->setYaw(yawNew);
 }
 
 void Robot::setSpeed(float speed, float angularSpeed)

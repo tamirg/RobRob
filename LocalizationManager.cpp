@@ -1,13 +1,13 @@
 #include "LocalizationManager.h"
 
-LocalizationManager::LocalizationManager(double x, double y) {
+LocalizationManager::LocalizationManager(double x, double y, Map* map) {
 	srand(time(NULL));
-	InitParticles(x, y);
+	InitParticles(x, y, map);
 }
 
-void LocalizationManager::InitParticles(double x, double y) {
+void LocalizationManager::InitParticles(double x, double y, Map* map) {
 	for (int p = 0; p < PARTICLES_QTY; p++) {
-		Particle newP(x, y, 1.0);
+		Particle newP(x, y, map);
 		_particleVector.push_back(newP);
 	}
 }
@@ -38,7 +38,7 @@ void LocalizationManager::UpdateParticles(double deltaX, double deltaY,
 				Location* pLocation = pd->getLocation();
 
 				Particle newParticle(pLocation->getX(), pLocation->getY(),
-						pd->getBelief());
+						pd->getMap());
 				newParticle.setYaw(pLocation->getYaw());
 				newParticle.setMap(pd->getMap());
 				_particleVector.push_back(newParticle);

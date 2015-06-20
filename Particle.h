@@ -34,7 +34,7 @@ private:
 	double _belief;
 
 public:
-	Particle(double x, double y, double belief);
+	Particle(double x, double y, Map* map);
 	void update(double deltaX, double deltaY, double deltaYaw, float laserScan[], int laserCount);
 	double probByMov(double deltaX, double deltaY, double deltaYaw);
 	double probByMeasurement(float laserScan[], int laserCount);

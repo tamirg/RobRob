@@ -2,13 +2,14 @@
 
 #include "Particle.h"
 
-Particle::Particle(double x,double y, double belief)
+Particle::Particle(double x,double y, Map* map)
 {
+	_map = map;
 	Location* _location = new Location();
 	_location->setX((double)rand()/((double)RAND_MAX/30) - PARTICLE_CLOUD_RADIUS + x);
 	_location->setY((double)rand()/((double)RAND_MAX/30) - PARTICLE_CLOUD_RADIUS + y);
 	_location->setYaw(DTOR(rand() % 360));
-	_belief = belief;
+	_belief = 1;
 
 	int mapX,mapY;
 

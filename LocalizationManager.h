@@ -17,8 +17,8 @@ private:
 	ParticleVector _particleVector;
 
 public:
-	LocalizationManager(double x,double y);
-	void InitParticles(double x,double y);
+	LocalizationManager(double x,double y, Map* map);
+	void InitParticles(double x,double y, Map* map);
 	void UpdateParticles(double delX, double delY, double delTetha,float laserScan[]);
 	virtual ~LocalizationManager();
 };

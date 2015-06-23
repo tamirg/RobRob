@@ -6,21 +6,13 @@
  */
 
 #include "MapToGraphConverter.h"
+#include "Direction.h"
 
 MapToGraphConverter::MapToGraphConverter() {
 }
 
 MapToGraphConverter::~MapToGraphConverter() {
 }
-
-struct Direction {
-	int x;
-	int y;
-
-	Direction(int xDir, int yDir) : x(xDir), y(yDir) {
-
-	}
-};
 
 static const int directionsNum = 8;
 static const Direction directions[8] = { Direction(1, 0),

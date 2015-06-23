@@ -20,7 +20,7 @@ public:
 	virtual ~MapToGraphConverter();
 	Graph* matrixToGraph(Map* map);
 private:
-	vector<GraphLocation>* find_neighbors(int* map, int width, int height, int row, int col);
+	vector<GraphLocation>* findNeighbors(int* map, int width, int height, int row, int col);
 	void addNeighbor(int cellVal, int cellRow, int cellCol, vector<GraphLocation>* neighbors);
 	int getValueFromArray(int* arr, int arrWidth, int row, int col);
 };

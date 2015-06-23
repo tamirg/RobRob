@@ -10,18 +10,18 @@
 
 #include "GraphLocation.h"
 #include "Graph.h"
+#include <vector>
 
 class PathFinder {
+private:
+	std::vector<GraphLocation> reconstructPath(GraphLocation start,
+										  	   GraphLocation goal,
+										       std::map<GraphLocation, GraphLocation>& came_from);
 public:
     PathFinder();
     PathFinder(const PathFinder& orig);
     virtual ~PathFinder();
-    void aStarSearch
-        (Graph graph,
-         GraphLocation start,
-         GraphLocation goal,
-         std::map<GraphLocation, GraphLocation>& came_from,
-         std::map<GraphLocation, int>& cost_so_far);
+    std::vector<GraphLocation> aStarSearch(Graph graph, GraphLocation start, GraphLocation goal);
 };
 #endif	/* PATHFINDER_H */
 

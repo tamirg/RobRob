@@ -13,9 +13,24 @@ MapToGraphConverter::MapToGraphConverter() {
 MapToGraphConverter::~MapToGraphConverter() {
 }
 
-static const int directionsNum = 4;
-static const GraphLocation directions[4] = { GraphLocation(1, 0), GraphLocation(0, -1),
-		GraphLocation(-1, 0), GraphLocation(0, 1) };
+struct Direction {
+	int x;
+	int y;
+
+	Direction(int xDir, int yDir) : x(xDir), y(yDir) {
+
+	}
+};
+
+static const int directionsNum = 8;
+static const Direction directions[8] = { Direction(1, 0),
+										 Direction(1, 1),
+										 Direction(0, 1),
+										 Direction(-1, 1),
+										 Direction(-1, 0),
+										 Direction(-1, -1),
+										 Direction(0, -1),
+										 Direction(1, -1) };
 
 Graph* MapToGraphConverter::matrixToGraph(Map* map) {
 	Graph* graph = new Graph();
@@ -27,7 +42,7 @@ Graph* MapToGraphConverter::matrixToGraph(Map* map) {
 			switch (this->getValueFromArray(mapGrid, width, row, col)) {
 			case Helper::FREE_CELL:
 				GraphLocation current(col, row);
-				graph->edges[current] = *find_neighbors(mapGrid, width, height,
+				graph->edges[current] = *findNeighbors(mapGrid, width, height,
 						row, col);
 				break;
 			}
@@ -46,7 +61,7 @@ void MapToGraphConverter::addNeighbor(int cellVal, int cellRow, int cellCol,
 	}
 }
 
-vector<GraphLocation>* MapToGraphConverter::find_neighbors(int* map, int width,
+vector<GraphLocation>* MapToGraphConverter::findNeighbors(int* map, int width,
 		int height, int row, int col) {
 	int minRow = row > 0 ? row - 1 : 0;
 	int minCol = col > 0 ? col - 1 : 0;

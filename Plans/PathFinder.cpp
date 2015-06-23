@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <set>
+#include <algorithm>
 #include "PathFinder.h"
 #include "PriorityQueue.h"
 
@@ -17,22 +18,19 @@ using namespace std;
 PathFinder::PathFinder() {
 }
 
-
 PathFinder::PathFinder(const PathFinder& orig) {
 }
-
 
 PathFinder::~PathFinder() {
 }
 
-
 inline int heuristic(GraphLocation a, GraphLocation b) {
-	return abs(a.x - b.x) + abs(a.y - b.y);
+	return sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2));
 }
 
-
-void PathFinder::aStarSearch(Graph graph, GraphLocation start, GraphLocation goal,
-		map<GraphLocation, GraphLocation>& came_from, map<GraphLocation, int>& cost_so_far) {
+std::vector<GraphLocation> PathFinder::aStarSearch(Graph graph, GraphLocation start, GraphLocation goal) {
+	map<GraphLocation, GraphLocation> came_from;
+	map<GraphLocation, int> cost_so_far;
 	PriorityQueue<GraphLocation> frontier;
 	frontier.put(start, 0);
 
@@ -63,5 +61,36 @@ void PathFinder::aStarSearch(Graph graph, GraphLocation start, GraphLocation goa
 			}
 		}
 	}
+
+	return reconstructPath(start, goal, came_from);
 }
+
+std::vector<GraphLocation> PathFinder::reconstructPath(GraphLocation start,
+										  	           GraphLocation goal,
+										               std::map<GraphLocation, GraphLocation>& came_from) {
+	std::vector<GraphLocation> path;
+	GraphLocation current = goal;
+	path.push_back(current);
+
+	// Constructs the path from end to start
+	while (current != start) {
+		current = came_from[current];
+		path.push_back(current);
+	}
+
+	// Reverses the path so goal will be at the end of the vector
+	std::reverse(path.begin(), path.end());
+
+	return path;
+}
+
+
+
+
+
+
+
+
+
+
 

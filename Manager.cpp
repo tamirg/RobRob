@@ -11,11 +11,10 @@ Manager::Manager(Robot* robot, Plan* plan, Map* map,
 	
 	Graph* graph = mapConverter->matrixToGraph(map);
 
-	GraphLocation* startLocation = new GraphLocation(config->GetStartLocationX(), config->GetStartLocationY());
-	GraphLocation* targetLocation = new GraphLocation(config->GetGoalX(), config->GetGoalY());
+	GraphLocation startLocation(config->GetStartLocationX(), config->GetStartLocationY());
+	GraphLocation targetLocation(config->GetGoalX(), config->GetGoalY());
 
-	//TODO: doitch do your magic
-//	pathFinder->aStarSearch(graph, startLocation, targetLocation,  )
+	vector<GraphLocation> movementPath = pathFinder->aStarSearch(*graph, startLocation, targetLocation);
 
 	delete graph;
 }

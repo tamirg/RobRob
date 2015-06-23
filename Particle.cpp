@@ -142,6 +142,21 @@ void Particle::setYaw(double yaw)
 	_location.setYaw(yaw);
 }
 
+double Particle::getX()
+{
+	return _location.getX();
+}
+
+double Particle::getY()
+{
+	return _location.getY();
+}
+
+double Particle::getYaw()
+{
+	return _location.getYaw();
+}
+
 Location* Particle::getLocation()
 {
 	return new Location(_location.getX(),_location.getY(),_location.getYaw());

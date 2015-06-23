@@ -51,5 +51,29 @@ void LocalizationManager::UpdateParticles(double deltaX, double deltaY,
 	}
 }
 
+Location LocalizationManager::CalcRobotLocation()
+{
+	double particleXSum = 0;
+	double particleYSum = 0;
+	double particleYawSum = 0;
+	double totalBelief = 0;
+
+	for (int i = 0; i < _particleVector.size(); i++)
+	{
+		double curBelief = _particleVector[i].getBelief();
+
+		particleXSum += curBelief * _particleVector[i].getX();
+		particleYSum += curBelief * _particleVector[i].getY();
+		particleYawSum += curBelief * _particleVector[i].getYaw();
+		totalBelief += curBelief;
+	}
+
+	double robotX = particleXSum / totalBelief;
+	double robotY = particleYSum / totalBelief;
+	double robotYaw = particleYawSum / totalBelief;
+
+	return Location(robotX, robotY, robotYaw);
+}
+
 LocalizationManager::~LocalizationManager() {
 }

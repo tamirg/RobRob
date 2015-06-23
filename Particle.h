@@ -41,6 +41,9 @@ public:
 	void setMap(Map* map);
 	Map* getMap();
 	double getBelief();
+	double getX();
+	double getY();
+	double getYaw();
 	double convertIndexToAngle(int i, int x, int r);
 	void printMap();
 	void setYaw(double yaw);

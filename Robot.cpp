@@ -42,9 +42,13 @@ void Robot::setSpeed(float speed, float angularSpeed)
 	_pp->SetSpeed(speed,angularSpeed);
 }
 
-float Robot::getLaserDistance(int index)
+double Robot::getLaserDistance(int index)
 {
-	return _lp->GetRange(index);
+	return _lp->GetRange((uint)index);
+}
+
+Location Robot::getCurrLocation() {
+	return Location(_pp->GetXPos(), _pp->GetYPos(), _pp->GetYaw());
 }
 
 double Robot::getWidth()

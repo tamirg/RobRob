@@ -16,7 +16,8 @@ int main(int argc, char** argv)
 //  Simulator
 	Robot robot("localhost",6665, &configManager);
 	Map map(&configManager, &robot);
-	PlnObstacleAvoid pln(&robot);
+//	PlnObstacleAvoid pln(&robot);
+	GoToPointPlan pln(&robot);
 	MapToGraphConverter mapToGraphConverter;
 	PathFinder pathFinder;
 	Manager manager(&robot,&pln, &map, &configManager ,&mapToGraphConverter, &pathFinder);

@@ -11,7 +11,10 @@ protected:
 	Behavior* _starBeh;
 public:
 	Plan(Robot* robot);
-	virtual Behavior* startPoint()=0;
+//	virtual Behavior* startPoint()=0;
+    virtual Behavior* getStartingBehavior() {
+        return _starBeh;
+    }
 	virtual ~Plan();
 };
 

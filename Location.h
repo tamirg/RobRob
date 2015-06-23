@@ -1,6 +1,9 @@
 #ifndef LOCATION_H_
 #define LOCATION_H_
 
+#include "Particle.h";
+using namespace std;
+
 class Location
 {
 private:

@@ -20,7 +20,8 @@ public:
 	void read();
 	void setSpeed(float speed, float angularSpeed);
 	void getDelta(double &dX,double &dY,double &dYaw);
-	float getLaserDistance(int index);
+	double getLaserDistance(int index);
+	Location getCurrLocation();
 	double getWidth();
 	double getHeight();
 	virtual ~Robot();

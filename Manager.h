@@ -8,20 +8,23 @@
 #include "Plans/PathFinder.h"
 #include "Plans/MapToGraphConverter.h"
 #include "ConfigurationManager.h"
+#include <math.h>
+
 
 class Manager
 {
 private:
 	Robot* _robot;
-	Plan* _plan;
+	GoToPointPlan* _plan;
 	Behavior* _curr;
 	LocalizationManager* _LocalizationManager;
+	WaypointManager* _waypointsManager;
 	float _laserScan[SCAN_SPAN];
 
 public:
-	Manager(Robot* robot, Plan* plan, Map* map, ConfigurationManager* config,
+	Manager(Robot* robot, GoToPointPlan* plan, Map* map, ConfigurationManager* config,
 			MapToGraphConverter* mapConverter, PathFinder* pathFinder);
-
+	bool onTarget(Location* firstLoc, Location* secondLoc);
 	void run();
 	virtual ~Manager();
 };

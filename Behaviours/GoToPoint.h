@@ -11,6 +11,7 @@
 #include "Behavior.h"
 #include "../Location.h"
 #include "../Helper.h"
+#include "../WaypointManager.h"
 #include <math.h>
 
 class GoToPoint: public Behavior {

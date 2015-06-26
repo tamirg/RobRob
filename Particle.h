@@ -1,7 +1,7 @@
 #ifndef PARTICLE_H_
 #define PARTICLE_H_
-#include "Map.h"
 #include "Location.h"
+#include "Map.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -19,6 +19,7 @@
 #define DTOR(d) ((d) * M_PI / 180)
 #define NORMALIZE(z) atan2(sin(z), cos(z))
 #define M_TO_CM(m) (m * 100)
+#define CM_TO_M(m) (m / 100)
 #define ROBOT_DIMENTION_ON_MAP 3
 #define SENSOR_FROM_END 15
 #define SENSOR_DETECTION_RANGE 60

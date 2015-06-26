@@ -1,6 +1,8 @@
 #ifndef HELPER_H_
 #define HELPER_H_
 #include <vector>
+#include "Location.h"
+#include <math.h>
 
 #define SCAN_SPAN  666
 #define DEGREES 270
@@ -28,6 +30,7 @@ public:
 
 	static int IndexToDegrees(int index);
 	static int DegreesToIndex(int degrees);
+	static double distanceBetweenTwoLocations(Location* firstLoc, Location* secondLoc);
 };
 
 #endif /* HELPER_H_ */

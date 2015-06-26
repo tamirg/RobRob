@@ -51,7 +51,7 @@ void LocalizationManager::UpdateParticles(double deltaX, double deltaY,
 	}
 }
 
-Location LocalizationManager::CalcRobotLocation()
+Location* LocalizationManager::CalcRobotLocation()
 {
 	double particleXSum = 0;
 	double particleYSum = 0;
@@ -72,7 +72,7 @@ Location LocalizationManager::CalcRobotLocation()
 	double robotY = particleYSum / totalBelief;
 	double robotYaw = particleYawSum / totalBelief;
 
-	return Location(robotX, robotY, robotYaw);
+	return new Location(robotX, robotY, robotYaw);
 }
 
 LocalizationManager::~LocalizationManager() {

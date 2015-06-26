@@ -10,7 +10,7 @@ int Helper::IndexToDegrees(int index) {
 	return relativeIndex / Helper::DEGREES_INDEX_RATIO;
 }
 
-double distanceBetweenTwoLocations(Location* firstLoc, Location* secondLoc) {
+double Helper::distanceBetweenTwoLocations(Location* firstLoc, Location* secondLoc) {
 	return sqrt(
 			pow((firstLoc->getX() - secondLoc->getX()), 2.0)
 					+ pow((firstLoc->getY() - secondLoc->getY()), 2.0));

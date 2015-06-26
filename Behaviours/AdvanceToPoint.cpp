@@ -6,10 +6,11 @@
  */
 
 #include "AdvanceToPoint.h"
+#include "../Helper.h"
 
 AdvanceToPoint::AdvanceToPoint(Robot* robot, Location* currentLocation,
 		Location* targetLocation) :
-		Behavior(robot) {
+		WayPointsBehaviour(robot) {
 	_currentLocation = currentLocation;
 	_targetLocation = targetLocation;
 
@@ -20,12 +21,16 @@ bool AdvanceToPoint::startCond() {
 }
 
 bool AdvanceToPoint::stopCond() {
+	if (Helper::distanceBetweenTwoLocations(_currentLocation, _targetLocation) < 0.2)
+		return true;
+	return false;
+
 	bool rotateIsRequired = false;
 
 	double targetYaw = _targetLocation->getYaw();
 	double delta = DTOR(targetYaw) - _currentLocation->getYaw();
 
-	if (abs(delta) > DTOR(5)) {
+	if (abs(delta) > (double)DTOR(5)) {
 		cout << "delta Yaw bigger than " << RTOD(5) << endl;
 		rotateIsRequired = true;
 	}
@@ -35,8 +40,5 @@ bool AdvanceToPoint::stopCond() {
 
 void AdvanceToPoint::action() {
 	_robot->setSpeed(0.6, 0.0);
-}
-void AdvanceToPoint::SetDestLocation(Location destLoc) {
-	_targetLocation = destLoc;
 }
 

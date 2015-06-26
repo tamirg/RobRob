@@ -20,7 +20,7 @@ public:
 	LocalizationManager(double x,double y, Map* map);
 	void InitParticles(double x,double y, Map* map);
 	void UpdateParticles(double delX, double delY, double delTetha,float laserScan[]);
-	Location CalcRobotLocation();
+	Location* CalcRobotLocation();
 	virtual ~LocalizationManager();
 };
 

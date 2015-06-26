@@ -8,18 +8,18 @@
 #ifndef ADVANCETOPOINT_H_
 #define ADVANCETOPOINT_H_
 
+#include <math.h>
+#include <cmath>
 #include "Behavior.h"
+#include "WayPointsBehaviour.h"
 
-class AdvanceToPoint: public Behavior {
-private:
-    Location* _currentLocation;
-    Location* _targetLocation;
+class AdvanceToPoint: public WayPointsBehaviour {
+
 public:
     AdvanceToPoint(Robot* robot, Location* currentLocation, Location* targetLocation);
     bool startCond();
     bool stopCond();
     void action();
-    void SetDestLocation(Location destLoc);
     // his stop condition is that the angle is too far of a treshhold (30 degreee)
 };
 

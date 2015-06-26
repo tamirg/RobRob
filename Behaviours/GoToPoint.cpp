@@ -17,18 +17,20 @@ bool GoToPoint::startCond() {
 	return true;
 }
 bool GoToPoint::stopCond() {
-	if (!onTarget())
-		return true;
+//	if (!onTarget())
+//		return true;
 	return false;
 }
 void GoToPoint::action() {
 	if (_waypointsManager->isFinished()) {
 		cout << "reached final target" << endl;
 	} else {
-		bool isOnTarget = onTarget();
+		bool isOnTarget = true;
 		if (isOnTarget) {
 			// update target location
-			_targetLocation = _waypointsManager->nextWaypoint();
+			Location destLoc = _waypointsManager->nextWaypoint();
+			Location* loc = new Location(destLoc.getX(), destLoc.getY(), destLoc.getYaw());
+			_targetLocation = loc;
 		}
 	}
 }

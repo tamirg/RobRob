@@ -5,27 +5,25 @@
  *      Author: colman
  */
 
-#ifndef ROTATEBEHAVIOR_H_
-#define ROTATEBEHAVIOR_H_
+#ifndef ROTATETOPOINT_H_
+#define ROTATETOPOINT_H_
 
-#include "behavior.h"
+#include "Behavior.h"
+#include "../Behaviours/WayPointsBehaviour.h"
+#include <math.h>
+#include <cmath>
 
-#define TURN_SPEED      DTOR(20)
+#define TURN_SPEED DTOR(20)
 
-class RotateToPoint: public Behavior {
-
-private:
-    Location* _targetLocation;
-    Location* _currentLocation;
+class RotateToPoint: public WayPointsBehaviour {
 
 public:
     RotateToPoint(Robot* , Location* , Location* );
     bool startCond();
     bool stopCond();
     void action();
-    void SetDestLocation(Location destLoc);
     // Needs to set the robot yaw until it's reached to the targetRadianDegree
 
 };
 
-#endif /* ROTATEBEHAVIOR_H_ */
+#endif /* ROTATETOPOINT_H_ */

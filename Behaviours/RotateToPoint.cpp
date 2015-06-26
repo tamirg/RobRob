@@ -8,7 +8,7 @@
 #include "RotateToPoint.h"
 
 RotateToPoint::RotateToPoint(Robot* robot, Location* currentLocation, Location* targetLocation)
-: Behavior(robot)
+: WayPointsBehaviour(robot)
 {
     _currentLocation = currentLocation;
     _targetLocation = targetLocation;
@@ -21,24 +21,23 @@ bool RotateToPoint::startCond()
 
 bool RotateToPoint::stopCond()
 {
-    double targetYaw = calcRadianAngleBetweenLocations(_currentLocation, _targetLocation);
-    double delta = abs(targetYaw - _currentLocation->getYaw());
+	bool isInDirection = false;
 
-    if (delta < ROTATETOPOINT_ANGLE_EPSILON_R)
-    {
-        cout << "Reached to target yaw" << endl;
-        return true;
-    }
+	double targetYaw = _targetLocation->getYaw();
+	double delta = DTOR(targetYaw) - _currentLocation->getYaw();
 
-    cout << "Delta to target yaw: " << RadToDeg(delta) << "deg" << endl;
-    return false;
-}
+	if (abs(delta) < DTOR(5)) {
+		cout << "delta Yaw bigger than " << RTOD(5) << endl;
+		isInDirection = true;
+	}
 
-void RotateToPoint::SetDestLocation(Location destLoc) {
-	_targetLocation = destLoc;
+	cout << "Delta angle:" << RTOD(delta) << endl;
+	cout << "Target angle:" << targetYaw << endl;
+
+	return (isInDirection);
 }
 
 void RotateToPoint::action() {
-
+	_robot->setSpeed(0, 0.3);
 }
 

@@ -8,6 +8,8 @@
 #include "Plans/PathFinder.h"
 #include "Plans/MapToGraphConverter.h"
 #include "ConfigurationManager.h"
+#include "Plans/GoToPointPlan.h"
+#include "WaypointManager.h"
 #include <math.h>
 
 
@@ -19,6 +21,7 @@ private:
 	Behavior* _curr;
 	LocalizationManager* _LocalizationManager;
 	WaypointManager* _waypointsManager;
+	ConfigurationManager* _config;
 	float _laserScan[SCAN_SPAN];
 
 public:

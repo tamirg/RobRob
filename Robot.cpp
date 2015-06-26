@@ -8,8 +8,9 @@ Robot::Robot(char* ip, int port, ConfigurationManager* config)
 	_pc = new PlayerClient(ip,port);
 	_pp = new Position2dProxy(_pc);
 	_lp = new LaserProxy(_pc);
-	_location = new Location(config->GetStartLocationX(), config->GetStartLocationY(), config->GetStartLocationYaw());
-	_pp->SetOdometry(_location->getX(), _location->getY(), _location->getYaw());
+	double matrixToMeterRatio = config->GetMapResolutionCM() / 100;
+	_location = new Location(config->GetStartLocationX() * matrixToMeterRatio, config->GetStartLocationY() * matrixToMeterRatio, config->GetStartLocationYaw());
+	_pp->SetOdometry(_location->getX(), _location->getY(), DTOR(_location->getYaw()));
 
 	_pp->SetMotorEnable(true);
 	
@@ -22,6 +23,7 @@ void Robot::read()
 	_pc->Read();
 }
 
+// Gets the robot location delta in meters
 void Robot::getDelta(double &dX,double &dY,double &dYaw)
 {
 	double xNew = _pp->GetXPos();
@@ -31,6 +33,7 @@ void Robot::getDelta(double &dX,double &dY,double &dYaw)
 	dX = xNew - _location->getX();
 	dY = yNew - _location->getY();
 	dYaw = yawNew - _location->getYaw();
+	//cout<< xNew << " " << yNew << " " << yawNew << endl;
 
 	_location->setX(xNew);
 	_location->setY(yNew);
@@ -44,11 +47,12 @@ void Robot::setSpeed(float speed, float angularSpeed)
 
 double Robot::getLaserDistance(int index)
 {
-	return _lp->GetRange((uint)index);
+	return _lp->GetRange(index);
+	//return _lp->GetRange((uint)index);
 }
 
-Location Robot::getCurrLocation() {
-	return Location(_pp->GetXPos(), _pp->GetYPos(), _pp->GetYaw());
+Location* Robot::getCurrLocation() {
+	return new Location(_pp->GetXPos(), _pp->GetYPos(), _pp->GetYaw());
 }
 
 double Robot::getWidth()

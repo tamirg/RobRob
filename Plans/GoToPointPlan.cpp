@@ -19,34 +19,29 @@ GoToPointPlan::GoToPointPlan(Robot* robot) :
 	_advanceToPointBeh->addNext(_rotateToPointBeh);
 
 	_starBeh = _rotateToPointBeh;
-	_currBeh = _starBeh;
+	_currBeh = _rotateToPointBeh;
 }
 
-void GoToPointPlan::goToPoint() {
-	while (true) {
-		_robot->read();
-		if (_currBeh->stopCond()) {
-			_currBeh = _currBeh->selectNext();
-			_currBeh->action();
-			if (!_currBeh) {
-				break;
-			}
-		}
-	}
-}
-
-void GoToPointPlan::SetCurrentLocation(Location loc) {
+void GoToPointPlan::SetCurrentLocation(Location* loc) {
 	_currLocation = loc;
+	_rotateToPointBeh->SetCurrLocation(loc);
+	_advanceToPointBeh->SetCurrLocation(loc);
 }
 
-void GoToPointPlan::SetDestLocation(Location destLoc) {
+void GoToPointPlan::SetDestLocation(Location* destLoc) {
 	_dstLocation = destLoc;
+	_rotateToPointBeh->SetDestLocation(destLoc);
+	_advanceToPointBeh->SetDestLocation(destLoc);
+}
+
+Location* GoToPointPlan::getCurrentLocation()
+{
+	return _currLocation;
 }
 
 GoToPointPlan::~GoToPointPlan() {
 	delete _currLocation;
 	delete _dstLocation;
-	delete _goToPointBeh;
 	delete _rotateToPointBeh;
 	delete _advanceToPointBeh;
 }

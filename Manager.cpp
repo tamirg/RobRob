@@ -5,7 +5,8 @@ Manager::Manager(Robot* robot, GoToPointPlan* plan, Map* map,
 		PathFinder* pathFinder) {
 	_robot = robot;
 	_plan = plan;
-	_LocalizationManager = new LocalizationManager(M_TO_CM(_robot->_location->getX()),
+	_LocalizationManager = new LocalizationManager(
+			M_TO_CM(_robot->_location->getX()),
 			M_TO_CM(_robot->_location->getY()), map);
 
 	_config = config;
@@ -35,35 +36,30 @@ void Manager::run() {
 	while (!_waypointsManager->isFinished()) {
 		_curr = _plan->getStartingBehavior();
 		Location nextLoc = _waypointsManager->nextWaypoint();
-		Location* destLoc = new Location(CM_TO_M(nextLoc.getX() * _config->GetMapResolutionCM()),
-				                         CM_TO_M(nextLoc.getY() * _config->GetMapResolutionCM()),
-				                         nextLoc.getYaw());
-	//	cout<<"Location: " << _robot->getCurrLocation()->getX() << ", "<< _robot->getCurrLocation()->getY() << ", "<< _robot->getCurrLocation()->getYaw()<<endl;
+		cout << "Avarnu waypoint. Yay" << endl;
+		Location* destLoc = new Location(
+				CM_TO_M(nextLoc.getX() * _config->GetMapResolutionCM()),
+				CM_TO_M(nextLoc.getY() * _config->GetMapResolutionCM()),
+				DTOR(nextLoc.getYaw()));
+		//	cout<<"Location: " << _robot->getCurrLocation()->getX() << ", "<< _robot->getCurrLocation()->getY() << ", "<< _robot->getCurrLocation()->getYaw()<<endl;
 		//cout<<"Dest Location: " <<destLoc->getX() << ", "<< destLoc->getY() << ", "<< destLoc->getYaw()<<endl;
 		_plan->SetDestLocation(destLoc);
 		_curr->action();
 
-		while (!onTarget(_plan->getCurrentLocation(), destLoc))
-		{
-			if (_curr->stopCond())
-			{
+		while (!onTarget(_plan->getCurrentLocation(), destLoc)) {
+			if (_curr->stopCond()) {
 				_curr = _curr->selectNext();
 
-				if (_curr)
-				{
+				if (_curr) {
 					_curr->action();
-				}
-				else
-				{
-					int a = 1;
 				}
 			}
 
 			_robot->read();
 			_robot->getDelta(dX, dY, dYaw);
 			/*for (int i = 0; i < SCAN_SPAN; i++)
-				_laserScan[i] = _robot->getLaserDistance(i);
-			_LocalizationManager->UpdateParticles(dX, dY, dYaw, _laserScan);*/
+			 _laserScan[i] = _robot->getLaserDistance(i);
+			 _LocalizationManager->UpdateParticles(dX, dY, dYaw, _laserScan);*/
 			_plan->SetCurrentLocation(_robot->getCurrLocation());
 			//cout<<"Location: " << _robot->getCurrLocation()->getX() << ", "<< _robot->getCurrLocation()->getY() << ", "<< _robot->getCurrLocation()->getYaw()<<endl;
 		}
@@ -85,6 +81,8 @@ void Manager::run() {
 }
 
 bool Manager::onTarget(Location* firstLoc, Location* secondLoc) {
+//	cout << "Distance: "
+//			<< Helper::distanceBetweenTwoLocations(firstLoc, secondLoc) << endl;
 	//cout << "Distance between points: " << Helper::distanceBetweenTwoLocations(firstLoc, secondLoc) << endl;
 	if (Helper::distanceBetweenTwoLocations(firstLoc, secondLoc) < 0.2)
 		return true;

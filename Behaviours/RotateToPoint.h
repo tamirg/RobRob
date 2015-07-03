@@ -10,7 +10,6 @@
 
 #include "Behavior.h"
 #include "../Behaviours/WayPointsBehaviour.h"
-#include <math.h>
 #include <cmath>
 
 #define TURN_SPEED DTOR(20)

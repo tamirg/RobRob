@@ -28,10 +28,10 @@ bool AdvanceToPoint::stopCond() {
 	bool rotateIsRequired = false;
 
 	double targetYaw = _targetLocation->getYaw();
-	double delta = DTOR(targetYaw) - _currentLocation->getYaw();
+	double delta = targetYaw - _currentLocation->getYaw();
 
-	if (abs(delta) > (double)DTOR(5)) {
-		cout << "delta Yaw bigger than " << RTOD(5) << endl;
+	if (abs(delta) > (double)DTOR(2)) {
+		cout << "delta Yaw bigger than " << DTOR(2) << endl;
 		rotateIsRequired = true;
 	}
 

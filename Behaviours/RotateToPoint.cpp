@@ -6,38 +6,46 @@
  */
 
 #include "RotateToPoint.h"
+#include <algorithm>
 
-RotateToPoint::RotateToPoint(Robot* robot, Location* currentLocation, Location* targetLocation)
-: WayPointsBehaviour(robot)
-{
-    _currentLocation = currentLocation;
-    _targetLocation = targetLocation;
+RotateToPoint::RotateToPoint(Robot* robot, Location* currentLocation,
+		Location* targetLocation) :
+		WayPointsBehaviour(robot) {
+	_currentLocation = currentLocation;
+	_targetLocation = targetLocation;
 }
 
-bool RotateToPoint::startCond()
-{
+bool RotateToPoint::startCond() {
 	return true;
 }
 
-bool RotateToPoint::stopCond()
-{
+bool RotateToPoint::stopCond() {
 	bool isInDirection = false;
 
 	double targetYaw = _targetLocation->getYaw();
-	double delta = DTOR(targetYaw) - _currentLocation->getYaw();
+	double delta = targetYaw - _currentLocation->getYaw();
 
-	if (abs(delta) < DTOR(5)) {
-		cout << "delta Yaw bigger than " << RTOD(5) << endl;
+	cout << "delta yaw is: " << abs(delta) << endl << "targetYaw is: "
+			<< targetYaw << endl;
+	if (abs(delta) < DTOR(2) || abs(M_PI * 2 - delta) < DTOR(2)) {
+		cout << "delta Yaw smaller than " << DTOR(2) << endl;
 		isInDirection = true;
 	}
-
-	cout << "Delta angle:" << RTOD(delta) << endl;
-	cout << "Target angle:" << targetYaw << endl;
 
 	return (isInDirection);
 }
 
 void RotateToPoint::action() {
-	_robot->setSpeed(0, 0.3);
+	double targetYaw = _targetLocation->getYaw();
+	double delta = targetYaw - _currentLocation->getYaw();
+	double leftDelta = abs(M_PI * 2 - delta);
+	double rightDelta = abs(delta);
+	cout << "leftDelta: " << RTOD(leftDelta) << "Right delta " << RTOD(rightDelta) << endl;
+
+	if (leftDelta < rightDelta) {
+		_robot->setSpeed(0.0, -0.2);
+	} else {
+		_robot->setSpeed(0.0, 0.2);
+	}
 }
 

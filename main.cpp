@@ -10,13 +10,14 @@ using namespace std;
 int main(int argc, char** argv)
 {
 	ConfigurationManager configManager;
+	Helper::setMapResolutionCM(configManager.GetMapResolutionCM());
 //  Real Robot
 //	Robot robot("10.10.245.64",6665, &configManager);
 
 //  Simulator
 	Robot robot("localhost",6665, &configManager);
 	Map map(&configManager, &robot);
-//	PlnObstacleAvoid pln(&robot);
+
 	GoToPointPlan pln(&robot);
 	MapToGraphConverter mapToGraphConverter;
 	PathFinder pathFinder;

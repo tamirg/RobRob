@@ -1,4 +1,5 @@
 #include "Robot.h"
+#include "Helper.h"
 
 Robot::Robot(char* ip, int port, ConfigurationManager* config)
 {
@@ -8,9 +9,11 @@ Robot::Robot(char* ip, int port, ConfigurationManager* config)
 	_pc = new PlayerClient(ip,port);
 	_pp = new Position2dProxy(_pc);
 	_lp = new LaserProxy(_pc);
-	double matrixToMeterRatio = config->GetMapResolutionCM() / 100;
-	_location = new Location(config->GetStartLocationX() * matrixToMeterRatio, config->GetStartLocationY() * matrixToMeterRatio, config->GetStartLocationYaw());
-	_pp->SetOdometry(_location->getX(), _location->getY(), DTOR(_location->getYaw()));
+
+	Location startLoc = Helper::MapCellToMetersLocation(config->GetStartLocationX(), config->GetStartLocationY());
+	_location = new Location(startLoc.getX(), startLoc.getY(), DTOR(config->GetStartLocationYaw()));
+	_prevRobotLoc = new Location(_location->getX(), _location->getY(), _location->getYaw());
+	_pp->SetOdometry(_location->getX(), _location->getY(), _location->getYaw());
 
 	_pp->SetMotorEnable(true);
 	
@@ -30,13 +33,18 @@ void Robot::getDelta(double &dX,double &dY,double &dYaw)
 	double yNew = _pp->GetYPos();
 	double yawNew = _pp->GetYaw();
 
-	dX = xNew - _location->getX();
-	dY = yNew - _location->getY();
-	dYaw = yawNew - _location->getYaw();
-	//cout<< xNew << " " << yNew << " " << yawNew << endl;
+	dX = xNew - _prevRobotLoc->getX();
+	dY = yNew - _prevRobotLoc->getY();
+	dYaw = yawNew - _prevRobotLoc->getYaw();
 
+	// Saves the robot's last location. The robots [0,0] is the map center
+	_prevRobotLoc->setX(xNew);
+	_prevRobotLoc->setY(yNew);
+	_prevRobotLoc->setYaw(yawNew);
+
+	// Sets our location. [0,0] is top left
 	_location->setX(xNew);
-	_location->setY(yNew);
+	_location->setY(_location->getY() - dY);
 	_location->setYaw(yawNew);
 }
 
@@ -52,7 +60,7 @@ double Robot::getLaserDistance(int index)
 }
 
 Location* Robot::getCurrLocation() {
-	return new Location(_pp->GetXPos(), _pp->GetYPos(), _pp->GetYaw());
+	return new Location(_location->getX(), _location->getY(), _location->getYaw());
 }
 
 double Robot::getWidth()

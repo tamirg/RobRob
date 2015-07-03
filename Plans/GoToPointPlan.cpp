@@ -12,8 +12,7 @@ GoToPointPlan::GoToPointPlan(Robot* robot) :
 	_currLocation = robot->getCurrLocation();
 	_dstLocation = new Location(0, 0, 0);
 	_rotateToPointBeh = new RotateToPoint(_robot, _currLocation, _dstLocation);
-	_advanceToPointBeh = new AdvanceToPoint(_robot, _currLocation,
-			_dstLocation);
+	_advanceToPointBeh = new AdvanceToPoint(_robot, _currLocation, _dstLocation);
 
 	_rotateToPointBeh->addNext(_advanceToPointBeh);
 	_advanceToPointBeh->addNext(_rotateToPointBeh);

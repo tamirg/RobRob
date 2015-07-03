@@ -15,6 +15,7 @@ private:
 	PlayerClient* _pc;
 	Position2dProxy* _pp;
 	LaserProxy* _lp;
+	Location* _prevRobotLoc;
 public:
 	// This location is in meters
 	Location* _location;

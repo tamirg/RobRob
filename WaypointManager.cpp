@@ -8,6 +8,7 @@
 #include <math.h>
 #include "WaypointManager.h"
 #include "Location.h"
+#include "Helper.h"
 
 WaypointManager::WaypointManager(std::vector<GraphLocation> const &path) {
 	constructWayPoints(path);
@@ -28,9 +29,24 @@ bool WaypointManager::isFinished() {
 void WaypointManager::constructWayPoints(std::vector<GraphLocation> const &path) {
 	GraphLocation currLocation = path.front();
 
+	Location lastGraphLoc = Helper::MapCellToMetersLocation(path[0].x, path[0].y);
+	Location nextGraphLoc;
+
 	for (std::vector<GraphLocation>::const_iterator it = (path.begin() + 1); it != path.end(); ++it) {
-		_waypoints.push_back(constructLocation(currLocation, *it));
-		currLocation = *it;
+		nextGraphLoc = Helper::MapCellToMetersLocation(it->x, it->y);
+
+		if (Helper::distanceBetweenTwoLocations(&lastGraphLoc, &nextGraphLoc) > 0.2) {
+			_waypoints.push_back(constructLocation(currLocation, *it));
+
+			currLocation = *it;
+			lastGraphLoc = Helper::MapCellToMetersLocation(currLocation.x, currLocation.y);
+		}
+	}
+
+	GraphLocation lastLocation = path.back();
+
+	if (lastLocation.x != currLocation.x || lastLocation.y != currLocation.y) {
+		_waypoints.push_back(constructLocation(currLocation, lastLocation));
 	}
 }
 

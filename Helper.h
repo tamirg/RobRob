@@ -10,7 +10,6 @@
 
 class Helper
 {
-
 public:
 	static const float MINIMUM_WALL_RANGE_SIDES = 0.6;
 	static const float MINIMUM_WALL_RANGE = 0.8;
@@ -28,9 +27,13 @@ public:
 	static const int MAP_RESOLUTION = 10;
 	static const int BLOWN_MAP_PIXEL_RESOLUTION = 2.5;
 
+	static void setMapResolutionCM(double res);
+	static double getMapResolutionCM();
+
 	static int IndexToDegrees(int index);
 	static int DegreesToIndex(int degrees);
 	static double distanceBetweenTwoLocations(Location* firstLoc, Location* secondLoc);
+	static Location MapCellToMetersLocation(int x, int y);
 };
 
 #endif /* HELPER_H_ */

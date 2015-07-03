@@ -27,7 +27,7 @@ bool RotateToPoint::stopCond() {
 
 	cout << "delta yaw is: " << abs(delta) << endl << "targetYaw is: "
 			<< targetYaw << endl;
-	if (abs(delta) < DTOR(2) || abs(M_PI * 2 - delta) < DTOR(2)) {
+	if (abs(delta) < DTOR(2) || abs(M_PI * 2 - abs(delta)) < DTOR(2)) {
 		cout << "delta Yaw smaller than " << DTOR(2) << endl;
 		isInDirection = true;
 	}
@@ -38,7 +38,7 @@ bool RotateToPoint::stopCond() {
 void RotateToPoint::action() {
 	double targetYaw = _targetLocation->getYaw();
 	double delta = targetYaw - _currentLocation->getYaw();
-	double leftDelta = abs(M_PI * 2 - delta);
+	double leftDelta = abs(M_PI * 2 - abs(delta));
 	double rightDelta = abs(delta);
 	cout << "leftDelta: " << RTOD(leftDelta) << "Right delta " << RTOD(rightDelta) << endl;
 

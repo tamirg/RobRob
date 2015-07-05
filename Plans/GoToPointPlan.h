@@ -11,11 +11,10 @@
 #include <vector>
 #include "Plan.h"
 #include "../Location.h"
-#include "../Behaviours/GoToPoint.h"
 #include "../Behaviours/RotateToPoint.h"
 #include "../Behaviours/AdvanceToPoint.h"
-#include "../Behaviours/TurnInPlace.h"
 #include "../Behaviours/WayPointsBehaviour.h"
+#include "../WaypointManager.h"
 
 class GoToPointPlan: public Plan {
 private:

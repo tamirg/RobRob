@@ -1,7 +1,6 @@
 #include <iostream>
 #include "Robot.h"
 #include "Manager.h"
-#include "Plans/PlnObstacleAvoid.h"
 #include "MapLibraries/pngUtil.h"
 #include "ConfigurationManager.h"
 

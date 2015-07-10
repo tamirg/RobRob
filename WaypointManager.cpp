@@ -32,11 +32,16 @@ void WaypointManager::constructWayPoints(std::vector<GraphLocation> const &path)
 	Location lastGraphLoc = Helper::MapCellToMetersLocation(path[0].x, path[0].y);
 	Location nextGraphLoc;
 
+	Location prevLocation = Location(0, 0, -999);
+
 	for (std::vector<GraphLocation>::const_iterator it = (path.begin() + 1); it != path.end(); ++it) {
 		nextGraphLoc = Helper::MapCellToMetersLocation(it->x, it->y);
 
-		if (Helper::distanceBetweenTwoLocations(&lastGraphLoc, &nextGraphLoc) > 0.2) {
-			_waypoints.push_back(constructLocation(currLocation, *it));
+		Location nextLocation = constructLocation(currLocation, *it);
+
+		if (Helper::distanceBetweenTwoLocations(&lastGraphLoc, &nextGraphLoc) > 0.2 ||
+			prevLocation.getYaw() != nextLocation.getYaw()) {
+			_waypoints.push_back(nextLocation);
 
 			currLocation = *it;
 			lastGraphLoc = Helper::MapCellToMetersLocation(currLocation.x, currLocation.y);

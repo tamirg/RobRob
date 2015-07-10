@@ -57,17 +57,17 @@ void Manager::run() {
 
 			_robot->read();
 			_robot->getDelta(dX, dY, dYaw);
-			/*for (int i = 0; i < SCAN_SPAN; i++)
+			for (int i = 0; i < SCAN_SPAN; i++)
 			 _laserScan[i] = _robot->getLaserDistance(i);
-			 _LocalizationManager->UpdateParticles(dX, dY, dYaw, _laserScan);*/
+			 _LocalizationManager->UpdateParticles(dX, dY, dYaw, _laserScan);
 			_plan->SetCurrentLocation(_robot->getCurrLocation());
 			//cout<<"Location: " << _robot->getCurrLocation()->getX() << ", "<< _robot->getCurrLocation()->getY() << ", "<< _robot->getCurrLocation()->getYaw()<<endl;
 		}
 		_robot->read();
 		_robot->getDelta(dX, dY, dYaw);
-		//for (int i = 0; i < SCAN_SPAN; i++)
-		//	_laserScan[i] = _robot->getLaserDistance(i);
-		//_LocalizationManager->UpdateParticles(dX, dY, dYaw, _laserScan);
+		for (int i = 0; i < SCAN_SPAN; i++)
+			_laserScan[i] = _robot->getLaserDistance(i);
+		_LocalizationManager->UpdateParticles(dX, dY, dYaw, _laserScan);
 		_plan->SetCurrentLocation(_robot->getCurrLocation());
 
 		_robot->setSpeed(0, 0);
